@@ -1,0 +1,69 @@
+import userTypes from '../../types/userTypes'
+
+const initialState = {
+    currentUser:null,
+    users:[],
+    userError:null,
+    userSuccess:false
+}
+const userReducer = (state = initialState,action)=>{
+    switch(action.type){
+        case userTypes.GET_USERS:
+            return{
+                ...state,
+                users:action.payload
+            }
+        case userTypes.AUTH:
+                return{
+                    ...state,
+                    currentUser:action.payload,
+                    userError:null,
+                    userSuccess:!state.userSuccess
+                }
+        case userTypes.CHECK_AUTH:
+                return{
+                     ...state,
+                 currentUser:action.payload
+                    }
+         case userTypes.SIGNOUT:
+                return{
+                    ...state,
+                    user:action.payload
+                        }
+        case userTypes.REGISTER:
+                return{
+                    ...state,
+                    userSuccess:!state.userSuccess,
+                        }
+        case userTypes.UPDATE:
+                return{
+                    state,
+                    }
+        case userTypes.DELETE:
+            const updateUsers = state.users.filter((user)=> user._id !==action.payload._id);
+                 return{
+                  ...state,
+                  users:updateUsers,
+              }
+        case userTypes.FOLLOW:
+                  return{
+                      state,
+                  }    
+        case userTypes.UNFOLLOW:
+                    return{
+                        state,
+                      } 
+        case 'USER_ERROR':
+            return {
+                ...state,
+                userError:action.payload
+            } 
+            case 'TOGGLE_SUCCESS':
+                return {
+                    ...state,
+                    userSuccess:!state.userSuccess
+                } 
+        default :return {state}                       
+    }
+}
+export default userReducer
