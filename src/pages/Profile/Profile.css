@@ -1,0 +1,31 @@
+.profle{
+    background-color: hotpink;
+    align-items: center;
+}
+.profile__header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: indigo;
+}
+.profile__info{
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(155, 122, 179);
+
+}
+.profile__follow{
+    display: flex;
+    justify-content: center;
+
+}
+.btn__follow>*{
+    margin-top: 15px;
+width: 211px;
+}
+.prolile__img>*{
+    width: 111px;
+    height: 111px;
+}

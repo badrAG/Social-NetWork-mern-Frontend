@@ -15,18 +15,22 @@ function NavBar({currentUser}) {
 }
   
   // Close the dropdown menu if the user clicks outside of it
-  window.onclick = function(event) {
+ 
+  const reset = ()=>{
+     window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
         if (toggle) {
-         setToggle(false)
+         setToggle(false);
         }
     }
   }
+  }
+  reset();
     return (
        <div className="header">
-         <div className="header__left">
+         <Link className="header__left" to="/">
             <img src="https://1000logos.net/wp-content/uploads/2016/11/Facebook-logo.png" alt="logo"/>
-         </div>
+         </Link>
          <div className="header__center">
            <Link className="header__option--active" to="/">
               <HomeIcon fontSize="large"/>
@@ -36,13 +40,12 @@ function NavBar({currentUser}) {
               <input type="text" placeholder="Search"/>
             <SearchIcon/>
             </div>
-            
          </div>
          <div className="header__right">
             <div className="header_info">
-              <Link to={`/user/${currentUser && currentUser.user._id}`}>
+              <Link to={`/user/${currentUser && currentUser.user.user._id}`}>
               <Avatar/>
-            <h4>@{currentUser && currentUser.user.UserName}</h4>
+            <h4>@{currentUser && currentUser.user.user.UserName}</h4>
             </Link>
             </div>
             <div className="dropdown">
@@ -50,21 +53,13 @@ function NavBar({currentUser}) {
     <ExpandMoreIcon />
     </IconButton>
   <div id="myDropdown" className={toggle?"dropdown-content-show":"dropdown-content"}>
-    {
-      !currentUser ?
-     ( <>
-      <Link to="/signup">Sign Up</Link>
-    <Link to="/login" >Log In</Link>
-    </>)
-    :
-    (<>
-    <Link onClick={
+    
+    <Link to="#" onClick={
       ()=>{logout(()=>{
       history.push("/login");
       })}
     }>Log Out</Link>
-    </>)
-    }
+    
   </div>
 </div>
          </div>

@@ -28,7 +28,7 @@ const userReducer = (state = initialState,action)=>{
          case userTypes.SIGNOUT:
                 return{
                     ...state,
-                    user:action.payload
+                    currentUser:action.payload
                         }
         case userTypes.REGISTER:
                 return{
