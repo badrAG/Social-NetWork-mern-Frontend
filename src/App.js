@@ -8,7 +8,6 @@ import { connect, useDispatch } from 'react-redux';
 import {authCheck} from './redux/actions/userActions'
 import Users from './components/user/Users';
 import Profile from './pages/Profile/Profile';
-import NavBar from './components/navbar/Navbar';
 
 function App({currentUser}) {
 
@@ -21,19 +20,13 @@ function App({currentUser}) {
   return (
     <div className="app">
       <Router>
-        <NavBar currentUser={currentUser}/>
         <Switch>
          <Route path="/" exact component={()=><Menu currentUser={currentUser}/>}/>
          <Route path="/connect_people" component={()=><Users currentUser={currentUser} styleToggle={styleToggle}/>}/>
-         <Route path="/:userId" component={Profile}/>
-         
-        </Switch>
-       </Router>
-       <Router>
-         <Switch>
+         <Route path="/i/:userId" component={()=><Profile currentUser={currentUser}/>}/>
          <Route path="/signup" component={SignUp}/>
          <Route path="/login" component={LogIn}/>
-         </Switch>
+        </Switch>
        </Router>
     </div>
   );

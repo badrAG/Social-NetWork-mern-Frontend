@@ -43,9 +43,9 @@ function NavBar({currentUser}) {
          </div>
          <div className="header__right">
             <div className="header_info">
-              <Link to={`/user/${currentUser && currentUser.user.user._id}`}>
+              <Link to={`/i/${currentUser && currentUser.user._id}`}>
               <Avatar/>
-            <h4>@{currentUser && currentUser.user.user.UserName}</h4>
+            <h4>@{currentUser && currentUser.user.UserName}</h4>
             </Link>
             </div>
             <div className="dropdown">

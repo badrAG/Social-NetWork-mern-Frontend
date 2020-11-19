@@ -10,6 +10,7 @@ function Menu({currentUser}) {
         <>
         { currentUser ?(
         <>
+         <NavBar currentUser={currentUser}/>
       <div className="row">
         <div className="col col-md-2 ms-4 card__users" style={styleToggel?{ margin:"0px" }:{marginLeft:"31px"}}>
         <Users styleToggel={styleToggel} />

@@ -79,9 +79,65 @@ const authCheck = ()=>{
         });
     };
 };
+const getUser =(token,userId)=>{
+    const config = {
+        headers:{
+            Authorization : `Bearer ${token}`,
+          }
+        }
+           return axios
+            .get(`http://localhost:8888/api/user/${userId}`,config)
+            .then(res=>{
+                if(res.data.error){
+                   return {error : res.data.error}
+                }else{
+                   return {data : res.data}
+                }
+            })
+            .catch(err => console.log(err))
+}
+const Follow =(userId,followId,token)=>{
+    const config = {
+        headers:{
+            Authorization : `Bearer ${token}`,
+          }
+        }
+           return axios
+            .put(`http://localhost:8888/api/user/add/follow/`,{userId,followId},config)
+            .then(res=>{
+                if(res.data.error){
+                   return {error : res.data.error}
+                }else{
+                   return {data : res.data}
+                }
+            })
+            .catch(err => console.log(err))
+}
+
+const unFollow =(userId,followId,token)=>{
+    const config = {
+        headers:{
+            Authorization : `Bearer ${token}`,
+          }
+        }
+           return axios
+            .put(`http://localhost:8888/api/user/remove/unFollow`,{userId,followId},config)
+            .then(res=>{
+                if(res.data.error){
+                   return {error : res.data.error}
+                }else{
+                   return {data : res.data}
+                }
+            })
+            .catch(err => console.log(err))
+}
+
 export {
     createUser,
     login,
     authCheck,
-    getAllUsers
+    getAllUsers,
+    getUser,
+    Follow,
+    unFollow
 }

@@ -49,7 +49,7 @@ function SignUp({userError,userSuccess}) {
             <input type="text" name="name" placeholder="Name" onChange={(e)=>handleInputChange(e)} value={user.name} className="form-control" />
         </div>
        <div className="form-group">
-    <input type="text" name="UserName" placeholder="User Name" onChange={(e)=>handleInputChange(e)} value={user.UserName} className="form-control" />
+    <input type="text" name="UserName" placeholder="User Name" onChange={(e)=>handleInputChange(e)} value={user.UserName.split(" ").join("")} className="form-control" />
   </div>
   <div className="form-group">
     <input type="email" name="email" placeholder="Email" onChange={(e)=>handleInputChange(e)} value={user.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
