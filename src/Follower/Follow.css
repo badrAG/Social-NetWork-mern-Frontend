@@ -1,0 +1,38 @@
+.follow__buttonOption{
+    margin-top: 0px !important;
+    background-color: #19d66b !important;
+    color: white !important;
+width: 103px;
+font-weight: 600 !important;
+font-family: cursive !important;
+}
+.unfollow__buttonOption{
+    margin-top: 0px !important;
+    border:3px solid #19d66b !important;
+    color: #19d66b !important;
+    background-color: transparent !important;
+width: 103px; 
+font-weight: 600 !important;
+font-family: cursive !important;
+}
+.btn__Follow{
+    margin-top: 5px !important;
+    background-color: #19d66b !important;
+    color: white !important;
+width: 211px;
+font-weight: 600 !important;
+font-family: cursive !important;
+}
+.btn__unFollow{
+    margin-top: 5px !important;
+    border:3px solid #19d66b !important;
+    color: #19d66b !important;
+    background-color: transparent !important;
+width: 211px; 
+font-weight: 600 !important;
+font-family: cursive !important;
+}
+.btn__Follow:focus,
+.btn__unFollow:focus{
+    outline: none !important;
+}

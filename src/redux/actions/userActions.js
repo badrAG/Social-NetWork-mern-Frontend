@@ -73,9 +73,10 @@ const login = (user)=>{
 
 const authCheck = ()=>{
     return (dispatch) => {
+      const data= isLogged()? isLogged():null;
         dispatch({
              type : userTypes.CHECK_AUTH,
-            payload:isLogged()?{user : isLogged()}:null,
+            payload:data
         });
     };
 };

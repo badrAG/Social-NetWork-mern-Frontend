@@ -16,7 +16,7 @@ function Users({users,userError,currentUser,styleToggle}) {
         if(userError && userError !== null){
             setError(userError);
           }
-          dispatch(getAllUsers(currentUser &&currentUser.user.token));
+          dispatch(getAllUsers(currentUser &&currentUser.token));
     },[userError,currentUser,dispatch]);
 
 

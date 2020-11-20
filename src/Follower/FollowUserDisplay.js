@@ -1,11 +1,10 @@
 import { Avatar } from '@material-ui/core';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import FollowOption from './FollowOption';
 
 function FollowUserDisplay({Follow,data}) {
-    const history = useHistory();
-    return (
-      
+return (
 <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div className="modal-content">
@@ -16,20 +15,14 @@ function FollowUserDisplay({Follow,data}) {
         </button>
       </div>
       <div className="modal-body">
-           {data &&
-               data.length>0?
+           {data && data.length>0?
                  data.map((user)=>(
-                    <div key={user._id} style={{ cursor:"pointer" }} 
-                    onClick={()=>history.push(`/i/${user._id}`)}
-                    data-dismiss="modal" aria-label="Close">
-                    <div className="d-flex mb-2 align-items-center">
-                    <Avatar/>
-                    <div className="follow__name ml-2">
-                        <h6>{user.UserName}</h6>
+                   <>
+                    <div key={user._id} >
                     </div>
-                    </div>
-                    <hr/>
-                    </div>
+                     <FollowOption userId={user._id} />
+                     <hr/>
+                     </>
                     )
                 )
                 :<h5>Empty{Follow?" Followers":" Following"}</h5>

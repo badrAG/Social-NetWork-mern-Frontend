@@ -15,6 +15,7 @@ function Profile({currentUser}) {
     const [user,setUser]=useState(null);
     const [following,setFollowing]=useState(false);
     const jwt = isLogged();
+    const [styleButton, setStyleButton] = useState(false);
 
     useEffect(()=>{
          const getProfile=async()=>{  
@@ -30,7 +31,6 @@ function Profile({currentUser}) {
         setUser(user);
         setFollowing(!following);
     }
-
     const checkFollow = (user)=>{
         const match = user.followers.find((follower)=>{
             return follower._id === jwt.user._id;
@@ -103,8 +103,8 @@ function Profile({currentUser}) {
             <>
             {
             Follow?
-            <FollowUserDisplay Follow={Follow} data={user && user.followers}/>:
-            <FollowUserDisplay Follow={Follow} data={user && user.following}/>
+            <FollowUserDisplay jwt={jwt}  Follow={Follow} data={user && user.followers}/>:
+            <FollowUserDisplay Follow={Follow}  data={user && user.following}/>
             
         }
         </>

@@ -30,27 +30,7 @@ justify-content: center;
 .profile__following>h6{
     margin-left: 11px;
 }
-.btn__Follow{
-    margin-top: 5px !important;
-    background-color: #19d66b !important;
-    color: white !important;
-width: 211px;
-font-weight: 600 !important;
-font-family: cursive !important;
-}
-.btn__unFollow{
-    margin-top: 5px !important;
-    border:3px solid #19d66b !important;
-    color: #19d66b !important;
-    background-color: transparent !important;
-width: 211px; 
-font-weight: 600 !important;
-font-family: cursive !important;
-}
-.btn__Follow:focus,
-.btn__unFollow:focus{
-    outline: none !important;
-}
+
 .profile__edpeo{
 position: relative;
 margin-bottom: 8px;
