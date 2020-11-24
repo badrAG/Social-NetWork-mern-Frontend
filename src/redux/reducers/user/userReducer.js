@@ -36,8 +36,13 @@ const userReducer = (state = initialState,action)=>{
                     userSuccess:!state.userSuccess,
                         }
         case userTypes.UPDATE:
+            const jwt = JSON.parse(localStorage.getItem("jwt"));
+            const newJwt = {...jwt,user:action.payload};
+            localStorage.setItem("jwt",JSON.stringify(newJwt));
                 return{
-                    state,
+                    ...state,
+                    currentUser:{...state.currentUser,user:action.payload},
+                    userSuccess:!state.userSuccess,
                     }
         case userTypes.DELETE:
             const updateUsers = state.users.filter((user)=> user._id !==action.payload._id);

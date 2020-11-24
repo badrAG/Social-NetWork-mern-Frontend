@@ -18,5 +18,5 @@ export const logout = (cb)=>{
 }
 
 export const checkAuth = (userId)=>{
-    return isLogged().user._id ===userId;
+    return isLogged() && isLogged().user._id ===userId;
 }

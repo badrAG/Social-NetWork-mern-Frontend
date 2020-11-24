@@ -49,7 +49,7 @@ function Users({users,userError,currentUser,styleToggle}) {
                               <></>
                             ):(
                                 <>
-                                <Link to={`/i/${user._id}`} className="col col-md-8 users__content" >
+                                <Link to={`/@${user._id}`} className="col col-md-8 users__content" >
                                     <div className="row">
                                         <div className={styleToggle?"col col-md-1 user_avatar":"col col-md-3 user_avatar"}>
                                           <Avatar src={`http://localhost:8888/api/user/photo/${user._id}`}/>

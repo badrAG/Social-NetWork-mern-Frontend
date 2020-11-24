@@ -19,7 +19,7 @@ function FollowOption({userId}) {
              setUser(userData.data);
           }
           getProfile();
- },[userId,jwt]);
+ },[jwt.token]);
  const history = useHistory();
 
 
@@ -40,10 +40,10 @@ function FollowOption({userId}) {
         <div className="d-flex mb-2 align-items-center justify-content-between">
             {error}
             <div style={{ cursor:"pointer" }} 
-        onClick={()=>history.push(`/i/${user._id}`)}
+        onClick={()=>history.push(`/@${user._id}`)}
         data-dismiss="modal" aria-label="Close">
                 <div className="d-flex align-items-center">
-            <Avatar/>
+            <Avatar src={`http://localhost:8888/api/user/photo/${user && user._id}`}/>
             <h6 className="follow__name ml-2">{user && user.UserName}</h6>
         </div>
             </div>

@@ -1,0 +1,32 @@
+
+.icon__upload>input{
+     display: none;
+    position: absolute;
+    overflow: hidden;
+    top: 0px;
+}
+.upload__image{
+position: absolute;
+top:155px;
+left:19rem;
+padding-left: 5px;
+padding-right: 5px;
+border-radius: 9px;
+color: honeydew;
+background-color: #3ec449;
+}
+.imageAv{
+    position: relative;
+}
+.icon__upload{
+    position: relative;
+    cursor: pointer;
+}
+.contener__image{
+    position: relative;
+}
+.image__profile{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 22px;
+}

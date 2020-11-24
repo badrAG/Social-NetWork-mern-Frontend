@@ -22,10 +22,10 @@ function App({currentUser}) {
     <div className="app">
       <Router>
         <Switch>
-         <Route path="/" exact component={()=><Menu currentUser={currentUser} />}/>
-         <Route path="/connect_people" component={()=><Users currentUser={currentUser} styleToggle={styleToggle}/>}/>
-         <Route path="/i/:userId" component={()=><Profile currentUser={currentUser}/>}/>
-         <Route path="/edit/profile/:userId" component={()=><EditProfile currentUser={currentUser}/>}/>
+         <Route path="/" exact component={()=><Menu currentUser={currentUser && currentUser} />}/>
+         <Route path="/connect_people" component={()=><Users currentUser={currentUser && currentUser} styleToggle={styleToggle}/>}/>
+         <Route path="/@:userId" component={()=><Profile currentUser={currentUser && currentUser}/>}/>
+         <Route path="/edit/profile/:userId" component={()=><EditProfile currentUser={currentUser && currentUser}/>}/>
          <Route path="/signup" component={SignUp}/>
          <Route path="/login" component={LogIn}/>
         </Switch>

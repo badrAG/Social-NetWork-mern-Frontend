@@ -49,6 +49,33 @@ const createUser = (user)=>{
     };
 };
 
+const updateProfile = (user,token,userId)=>{
+    const config = {
+        headers:{
+            Authorization : `Bearer ${token}`,
+          }
+        }
+    return dispatch =>{
+        axios
+        .put(`http://localhost:8888/api/updateuser/${userId}`,user,config)
+        .then(res=>{
+            if(res.data.error){
+                dispatch({
+                    type : "USER_ERROR",
+                    payload:res.data.error 
+                });
+            }else{
+                dispatch({
+                    type : userTypes.UPDATE,
+                    payload : res.data,
+                });
+            }
+        })
+        .catch(err => console.log(err))
+    };
+};
+
+
 const login = (user)=>{
     return dispatch =>{
         axios
@@ -87,7 +114,7 @@ const getUser =(token,userId)=>{
           }
         }
            return axios
-            .get(`http://localhost:8888/api/user/${userId}`,config)
+            .get(`http://localhost:8888/api/${userId}`,config)
             .then(res=>{
                 if(res.data.error){
                    return {error : res.data.error}
@@ -140,5 +167,6 @@ export {
     getAllUsers,
     getUser,
     Follow,
-    unFollow
+    unFollow,
+    updateProfile
 }

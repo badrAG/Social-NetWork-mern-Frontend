@@ -43,8 +43,8 @@ function NavBar({currentUser}) {
          </div>
          <div className="header__right">
             <div className="header_info">
-              <Link to={`/i/${currentUser && currentUser.user._id}`}>
-              <Avatar/>
+              <Link to={`/@${currentUser && currentUser.user._id}`}>
+              <Avatar src={`http://localhost:8888/api/user/photo/${currentUser && currentUser.user._id}`}/>
             <h4>@{currentUser && currentUser.user.UserName}</h4>
             </Link>
             </div>

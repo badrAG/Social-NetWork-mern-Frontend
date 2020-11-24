@@ -15,18 +15,17 @@ function Profile({currentUser}) {
     const [user,setUser]=useState(null);
     const [following,setFollowing]=useState(false);
     const jwt = isLogged();
-    const [styleButton, setStyleButton] = useState(false);
 
     useEffect(()=>{
-         const getProfile=async()=>{  
+        getProfile();
+    },[userId]);
+
+const getProfile=async()=>{  
           const userData = await getUser(jwt&&jwt.token,userId);
             if(userData.error) return setError(userData.error);
             setUser(userData.data);
            setFollowing(checkFollow(userData.data));
         }
-        getProfile();
-    },[userId]);
-
     function handleButtonClick (user){
         setUser(user);
         setFollowing(!following);
@@ -59,7 +58,7 @@ function Profile({currentUser}) {
                 </div>
                 <div className="profile__edpeo">
                     <div className="prolile__img">
-                   <Avatar/>
+                    <Avatar src={`http://localhost:8888/api/user/photo/${userId}`}/>
                 </div>
                 {
                     checkAuth(userId)?
@@ -82,7 +81,7 @@ function Profile({currentUser}) {
             </div>
             <div className="adout__info">
                 <div className="about">
-                    <p>efvcer,fcz cze,czekc, ce,cezkc z,ck</p>
+                <p>{user && user.about}</p>
                 </div>
            </div>
             {

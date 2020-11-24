@@ -1,0 +1,31 @@
+.post__input{
+    background-color: #eff2f5;
+    border-radius: 9px;
+}
+.post__input>input{
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    padding: 8px;
+}
+
+.file__input{
+    background-color: #eff2f5;
+    border-radius: 9px;
+    cursor: pointer;
+    padding: 6px;
+    position: relative !important;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    color:  rgb(46, 46, 46);
+}
+.file__input>h6{
+    margin: 0;
+}
+.file__input>input{
+    position: absolute;
+    display: none;
+    overflow: hidden;
+    bottom: 0px;
+}
