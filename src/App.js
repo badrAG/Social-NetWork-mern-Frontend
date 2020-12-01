@@ -1,7 +1,7 @@
-import React ,{useEffect, useState} from 'react'
+import React ,{useEffect} from 'react'
 import './App.css';
 import SignUp from './pages/SignUp/SignUp'
-import Menu from './pages/Home';
+import Home from './pages/Home';
 import {BrowserRouter as Router,Route,Switch} from "react-router-dom"
 import LogIn from './pages/login/LogIn';
 import { connect, useDispatch } from 'react-redux';
@@ -22,7 +22,7 @@ function App({currentUser}) {
     <div className="app">
       <Router>
         <Switch>
-         <Route path="/" exact component={()=><Menu currentUser={currentUser && currentUser} />}/>
+         <Route path="/" exact component={()=><Home currentUser={currentUser && currentUser} />}/>
          <Route path="/connect_people" component={()=><Users currentUser={currentUser && currentUser} styleToggle={styleToggle}/>}/>
          <Route path="/@:userId" component={()=><Profile currentUser={currentUser && currentUser}/>}/>
          <Route path="/edit/profile/:userId" component={()=><EditProfile currentUser={currentUser && currentUser}/>}/>

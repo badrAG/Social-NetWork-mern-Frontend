@@ -9,14 +9,13 @@ import { getAllUsers } from '../../redux/actions/userActions';
 
 function Users({users,userError,currentUser,styleToggle}) {
     const  dispatch = useDispatch();
-
     const[error,setError]=useState(null);
 
     useEffect(()=>{
         if(userError && userError !== null){
             setError(userError);
           }
-          dispatch(getAllUsers(currentUser &&currentUser.token));
+          dispatch(getAllUsers(currentUser && currentUser.token));
     },[userError,currentUser,dispatch]);
 
 

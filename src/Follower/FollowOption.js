@@ -10,7 +10,15 @@ function FollowOption({userId}) {
     const jwt = isLogged();
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
     useEffect(()=>{
+        
+        const checkFollow = (data)=>{
+     const match =data && data.following.find((follower)=>{
+          return follower && follower._id === userId;
+    });
+        return match;
+    }
         const getProfile=async()=>{  
             const userData = await getUser(jwt&&jwt.token,userId);
             const myData = await getUser(jwt&&jwt.token,jwt && jwt.user._id);
@@ -18,23 +26,20 @@ function FollowOption({userId}) {
              setFollowing(checkFollow(myData.data));
              setUser(userData.data);
           }
-          getProfile();
- },[jwt.token]);
+          if(loading){
+            getProfile(); 
+          }
+          return ()=>{
+              setLoading(false);
+          }
+ },[jwt,userId,loading]);
  const history = useHistory();
-
-
-
  const [following, setFollowing] = useState(false);
 
  function handleButtonClick (user){
      setFollowing(!following);
  }
-    const checkFollow = (data)=>{
-     const match =data && data.following.find((follower)=>{
-          return follower && follower._id === userId;
-    });
-        return match;
-    }
+    
     
     return (
         <div className="d-flex mb-2 align-items-center justify-content-between">

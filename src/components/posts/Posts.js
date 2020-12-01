@@ -3,16 +3,17 @@ import React from 'react'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import '../posts/Posts.css'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-function Posts() {
+function Posts({post}) {
+const date = new Date(post.createdAt);
     return (
       <div className="container">
              <div className="d-flex justify-content-between align-items-center">
               <div className="info__post">
-                  <Avatar/>
+                  <Avatar src={`http://localhost:8888/api/user/photo/${post.PostedBy._id}`}/>
                         <h4 className="user__name">
-                        badrag
+                        {post.PostedBy.UserName}
                         <p className="timestimp__post">
-                    12/12/1212
+                    {date.toLocaleDateString()}
                   </p>
                   </h4>
                   
@@ -22,7 +23,7 @@ function Posts() {
           <div className="row">
               <div className="col col-md-12">
                   <div className="description m-2">
-                      good day
+                      {post.text}
                   </div>
               </div>
           </div>
@@ -35,10 +36,11 @@ function Posts() {
               <div className="">
                {/*  <i class="fas fa-heart"></i>
                <i className="fas fa-heart-broken"></i>*/}  
-              <i className="far fa-heart"></i>
+              <i className="far fa-heart">{post.likes.length}</i>
               </div>
               <div className="">
                  <ChatBubbleOutlineIcon/>
+                 {post.comments.length}
               </div>
           </div>
       </div>

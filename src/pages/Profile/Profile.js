@@ -8,34 +8,59 @@ import { checkAuth, isLogged } from '../../helpers/auth';
 import { getUser } from '../../redux/actions/userActions';
 import FollowButton from '../../Follower/FollowButton';
 import FollowUserDisplay from '../../Follower/FollowUserDisplay';
+import Posts from '../../components/posts/Posts';
+import { getUserPosts } from '../../redux/actions/postAction';
 
 function Profile({currentUser}) {
     const {userId}=useParams();
     const [error, setError] = useState("")
     const [user,setUser]=useState(null);
+    const [userPost,setUserPost]=useState(null);
     const [following,setFollowing]=useState(false);
+    const [lentFollower,setLentFollower]=useState(null);
+    const [lentFollowing,setLentFollowing]=useState(null);
+    const [loading,setLoading]=useState(true);
     const jwt = isLogged();
-
     useEffect(()=>{
-        getProfile();
-    },[userId]);
 
-const getProfile=async()=>{  
+         const checkFollow = (user)=>{
+        const match = user.followers.find((follower)=>{
+            return follower._id === jwt.user._id;
+        });
+        return match;
+        }
+        const getProfile=async()=>{  
           const userData = await getUser(jwt&&jwt.token,userId);
             if(userData.error) return setError(userData.error);
             setUser(userData.data);
            setFollowing(checkFollow(userData.data));
         }
+        const getPostUser = async ()=>{
+            const postData = await getUserPosts(jwt && jwt.token,userId);
+            if(postData.error) return setError(postData.error);
+            setUserPost(postData.data);
+        }
+        if (loading){
+
+          getProfile();
+          getPostUser();
+        }
+        return ()=>{
+            setLoading(false);
+        };
+    },[userId,loading,jwt]);
+    console.log(userPost);
+
+    useEffect(()=>{
+        setLentFollower(user?.followers.length);
+        setLentFollowing(user?.following.length);
+    },[user?.followers.length,user?.following.length])
+
     function handleButtonClick (user){
         setUser(user);
         setFollowing(!following);
     }
-    const checkFollow = (user)=>{
-        const match = user.followers.find((follower)=>{
-            return follower._id === jwt.user._id;
-        });
-        return match;
-    }
+   
     const showError = ()=>{
     return error && <div className="alert alert-danger">{error}</div>
     }
@@ -50,11 +75,12 @@ const getProfile=async()=>{
         <>
         <NavBar currentUser={currentUser}/>
         <div className="profle"> 
+        <div className="profile bg-white col-md-8 offset-2">
             {error ? showError():<>
              <div className="profile__header">
                 <div className="profile__info">
                     <div className="profile__followers" onClick={()=>handleFollowModal()} style={{ cursor:"pointer" }} data-toggle="modal" data-target="#exampleModal">
-                    <h5>{user && user.followers.length}</h5><h6>Followers</h6>
+                    <h5>{lentFollower}</h5><h6>Followers</h6>
                 </div>
                 <div className="profile__edpeo">
                     <div className="prolile__img">
@@ -70,7 +96,7 @@ const getProfile=async()=>{
                 </div>
                 
                 <div className="profile__following" onClick={()=>handleFollowingModal()} style={{ cursor:"pointer" }} data-toggle="modal" data-target="#exampleModal">
-                    <h5>{user && user.following.length}</h5><h6>Following</h6>
+                    <h5>{lentFollowing}</h5><h6>Following</h6>
                 </div>
                 </div>
             </div>
@@ -84,6 +110,15 @@ const getProfile=async()=>{
                 <p>{user && user.about}</p>
                 </div>
            </div>
+           {
+               userPost.length === 0 ?(<div>add first post</div>)
+                :
+               (userPost?.map(post =>(
+                <Posts post={post} key={post._id}/>
+              )
+              )
+              )
+           }
             {
                 !checkAuth(userId)?
                     <div className="profile__follow">
@@ -109,10 +144,10 @@ const getProfile=async()=>{
         </>
         </>
         }
+        </div>
         
         </div>
         </>
     )
 }
-
 export default Profile

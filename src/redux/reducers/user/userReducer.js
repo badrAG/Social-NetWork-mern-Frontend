@@ -33,6 +33,7 @@ const userReducer = (state = initialState,action)=>{
         case userTypes.REGISTER:
                 return{
                     ...state,
+                    userError:null,
                     userSuccess:!state.userSuccess,
                         }
         case userTypes.UPDATE:
@@ -45,10 +46,11 @@ const userReducer = (state = initialState,action)=>{
                     userSuccess:!state.userSuccess,
                     }
         case userTypes.DELETE:
-            const updateUsers = state.users.filter((user)=> user._id !==action.payload._id);
+            const updateUsers = state.users.filter((user)=> user._id !==action.payload.userId);
                  return{
                   ...state,
                   users:updateUsers,
+                  currentUser:null,
               }
         case userTypes.FOLLOW:
                   return{

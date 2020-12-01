@@ -1,15 +1,17 @@
 import { Avatar } from '@material-ui/core'
 import React, { useState } from 'react'
 import { connect, useDispatch } from 'react-redux';
-import {useHistory, useParams } from 'react-router-dom'
+import {Redirect, useHistory, useParams } from 'react-router-dom'
 import EditIcon from '@material-ui/icons/Edit';
 import NavBar from '../../components/navbar/Navbar';
-import { checkAuth, isLogged } from '../../helpers/auth';
-import { getUser, updateProfile } from '../../redux/actions/userActions';
+import { checkAuth, isLogged, logout } from '../../helpers/auth';
+import { getUser, updateProfile, deleteProfil } from '../../redux/actions/userActions';
 import './EditProfile.css'
+
+
 function EditProfile({currentUser,userSuccess,userError}) {
     const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
+    const [loading,setLoading]=useState(true);
     const dispatch = useDispatch();
     const history = useHistory()
     const jwt = isLogged();
@@ -25,27 +27,37 @@ function EditProfile({currentUser,userSuccess,userError}) {
     });
 
     React.useEffect(() => {
-        if(!checkAuth(userId)){
-            history.push(`/i/${userId}`);
-        }
-          getProfile();
-      }, [userId,userError,userSuccess])
-const getProfile=async()=>{  
+        const getProfile=async()=>{  
             const userData = await getUser(jwt&&jwt.token,userId);
               if(userData.error) return setError(userData.error);
               setUser(userData.data);
              
                 if(userSuccess){
-                  setSuccess(userSuccess);
+                 history.push(`/@${userId}`);
                   dispatch({type:"TOGGLE_SUCCESS"});
                 }
                 if(userError){
                     setError(userError);
                   }
           }
-    const redirectUser=()=>{
-        success && history.push(`/@${userId}`);
-    }
+        if(!checkAuth(userId)){
+            history.push(`/@${userId}`);
+        }
+        if (loading){
+            getProfile();
+          }
+          return ()=>{
+              setLoading(false);    
+          };
+      }, [userId,userError,userSuccess,loading,jwt,dispatch,history])
+
+      const handleDelete =()=>{
+        dispatch(deleteProfil(jwt?.token,userId));
+        logout(()=>{
+            return history.push(`/`);
+        })
+      }
+        
     const showError =()=>{
         return error && <div className="alert alert-danger">{error}</div>
         }
@@ -54,7 +66,6 @@ const getProfile=async()=>{
         ?e.target.files[0]:e.target.value;
         setUser({...user,[e.target.name]:value});
     }
-    console.log(user)
     const handleFormSubmit = (e)=>{
         e.preventDefault();
         user.name && userData.append("name",user.name);
@@ -74,7 +85,6 @@ const getProfile=async()=>{
         <div className="row">
             <div className="col-md-12 ms-6">
                 {showError()}
-                {redirectUser()}
                 <div className="users__title">
                     <h6>Edit Profile</h6>
                 </div>
@@ -109,6 +119,7 @@ const getProfile=async()=>{
   </div>
   <button type="submit" className="btn btn-primary">Edit</button>
  </form> 
+  <p className="text-danger mt-3 p-2" onClick={()=>handleDelete()} style={{ cursor:"pointer" }}>Delete Your Account</p>
  </div>
 </div>
 </div>

@@ -159,7 +159,31 @@ const unFollow =(userId,followId,token)=>{
             })
             .catch(err => console.log(err))
 }
-
+const deleteProfil = (token,userId)=>{
+    const config = {
+        headers:{
+            Authorization : `Bearer ${token}`,
+          }
+        }
+    return dispatch =>{
+        axios
+        .delete(`http://localhost:8888/api/users/${userId}`,config)
+        .then(res=>{
+            if(res.data.error){
+                dispatch({
+                    type : "USER_ERROR",
+                    payload:res.data.error 
+                });
+            }else{
+                dispatch({
+                    type : userTypes.DELETE,
+                    payload : userId,
+                });
+            }
+        })
+        .catch(err => console.log(err))
+    };
+};
 export {
     createUser,
     login,
@@ -168,5 +192,6 @@ export {
     getUser,
     Follow,
     unFollow,
-    updateProfile
+    updateProfile,
+    deleteProfil
 }
