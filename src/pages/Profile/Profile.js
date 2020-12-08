@@ -22,7 +22,6 @@ function Profile({currentUser}) {
     const [loading,setLoading]=useState(true);
     const jwt = isLogged();
     useEffect(()=>{
-
          const checkFollow = (user)=>{
         const match = user.followers.find((follower)=>{
             return follower._id === jwt.user._id;
@@ -31,30 +30,25 @@ function Profile({currentUser}) {
         }
         const getProfile=async()=>{  
           const userData = await getUser(jwt&&jwt.token,userId);
-            if(userData.error) return setError(userData.error);
+           const postData = await getUserPosts(jwt && jwt.token,userId);
+             if(userData.error) return setError(userData.error);
+             if(postData.error) return setError(postData.error);
             setUser(userData.data);
+             setUserPost(postData.data);
            setFollowing(checkFollow(userData.data));
         }
-        const getPostUser = async ()=>{
-            const postData = await getUserPosts(jwt && jwt.token,userId);
-            if(postData.error) return setError(postData.error);
-            setUserPost(postData.data);
-        }
         if (loading){
-
           getProfile();
-          getPostUser();
         }
         return ()=>{
             setLoading(false);
         };
     },[userId,loading,jwt]);
-    console.log(userPost);
 
     useEffect(()=>{
         setLentFollower(user?.followers.length);
         setLentFollowing(user?.following.length);
-    },[user?.followers.length,user?.following.length])
+    },[userId,user?.followers.length,user?.following.length])
 
     function handleButtonClick (user){
         setUser(user);
@@ -110,15 +104,15 @@ function Profile({currentUser}) {
                 <p>{user && user.about}</p>
                 </div>
            </div>
-           {
-               userPost.length === 0 ?(<div>add first post</div>)
+           { 
+               userPost?.length === 0 ?(<div>add first post</div>)
                 :
                (userPost?.map(post =>(
                 <Posts post={post} key={post._id}/>
               )
               )
               )
-           }
+           } 
             {
                 !checkAuth(userId)?
                     <div className="profile__follow">

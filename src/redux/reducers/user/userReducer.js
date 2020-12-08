@@ -70,7 +70,7 @@ const userReducer = (state = initialState,action)=>{
                     ...state,
                     userSuccess:!state.userSuccess
                 } 
-        default :return {state}                       
+        default :return {...state}                       
     }
 }
 export default userReducer

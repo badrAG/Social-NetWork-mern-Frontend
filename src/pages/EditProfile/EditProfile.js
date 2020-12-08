@@ -1,7 +1,7 @@
 import { Avatar } from '@material-ui/core'
 import React, { useState } from 'react'
 import { connect, useDispatch } from 'react-redux';
-import {Redirect, useHistory, useParams } from 'react-router-dom'
+import {useHistory, useParams } from 'react-router-dom'
 import EditIcon from '@material-ui/icons/Edit';
 import NavBar from '../../components/navbar/Navbar';
 import { checkAuth, isLogged, logout } from '../../helpers/auth';

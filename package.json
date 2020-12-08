@@ -1,7 +1,8 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
+  "name": "social-network-mern-frontend",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -29,11 +30,14 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/badrAG/Social-NetWork-mern-Frontend.git"
+  },
+  "author": "badrag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/badrAG/Social-NetWork-mern-Frontend/issues"
   },
   "browserslist": {
     "production": [
