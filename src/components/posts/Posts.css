@@ -110,3 +110,6 @@ outline: none
     padding: 3px;
     color:rgb(63, 63, 63)
 }
+.delete__comment>.MuiSvgIcon-root:hover{
+    color: rgba(241, 70, 70, 0.925) !important;
+}

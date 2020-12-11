@@ -13,6 +13,11 @@ const userReducer = (state = initialState,action)=>{
                 ...state,
                 users:action.payload
             }
+            case userTypes.GET_USER:
+            return{
+                ...state,
+                currentUser:action.payload
+            }
         case userTypes.AUTH:
                 return{
                     ...state,

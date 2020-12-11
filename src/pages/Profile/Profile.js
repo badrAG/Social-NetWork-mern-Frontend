@@ -1,147 +1,186 @@
-import { Avatar } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import NavBar from '../../components/navbar/Navbar'
-import SettingsIcon from '@material-ui/icons/Settings';
-import './Profile.css'
-import { useParams,Link } from 'react-router-dom';
-import { checkAuth, isLogged } from '../../helpers/auth';
-import { getUser } from '../../redux/actions/userActions';
-import FollowButton from '../../Follower/FollowButton';
-import FollowUserDisplay from '../../Follower/FollowUserDisplay';
-import Posts from '../../components/posts/Posts';
-import { getUserPosts } from '../../redux/actions/postAction';
+import { Avatar } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import NavBar from "../../components/navbar/Navbar";
+import SettingsIcon from "@material-ui/icons/Settings";
+import "./Profile.css";
+import { useParams, Link, useHistory } from "react-router-dom";
+import { checkAuth, isLogged } from "../../helpers/auth";
+import { getUser } from "../../redux/actions/userActions";
+import FollowButton from "../../Follower/FollowButton";
+import FollowUserDisplay from "../../Follower/FollowUserDisplay";
+import Posts from "../../components/posts/Posts";
+import { getUserPosts } from "../../redux/actions/postAction";
+import { connect, useDispatch } from "react-redux";
 
-function Profile({currentUser}) {
-    const {userId}=useParams();
-    const [error, setError] = useState("")
-    const [user,setUser]=useState(null);
-    const [userPost,setUserPost]=useState(null);
-    const [following,setFollowing]=useState(false);
-    const [lentFollower,setLentFollower]=useState(null);
-    const [lentFollowing,setLentFollowing]=useState(null);
-    const [loading,setLoading]=useState(true);
-    const jwt = isLogged();
-    useEffect(()=>{
-         const checkFollow = (user)=>{
-        const match = user.followers.find((follower)=>{
-            return follower._id === jwt.user._id;
-        });
-        return match;
-        }
-        const getProfile=async()=>{  
-          const userData = await getUser(jwt&&jwt.token,userId);
-           const postData = await getUserPosts(jwt && jwt.token,userId);
-             if(userData.error) return setError(userData.error);
-             if(postData.error) return setError(postData.error);
-            setUser(userData.data);
-             setUserPost(postData.data);
-           setFollowing(checkFollow(userData.data));
-        }
-        if (loading){
-          getProfile();
-        }
-        return ()=>{
-            setLoading(false);
-        };
-    },[userId,loading,jwt]);
+function Profile() {
+  const { userId } = useParams();
+  const [error, setError] = useState("");
+  const [userPost, setUserPost] = useState(null);
+  const [user, setUser] = useState();
+  const [following, setFollowing] = useState(false);
+  const [lentFollower, setLentFollower] = useState(null);
+  const [lentFollowing, setLentFollowing] = useState(null);
+  const jwt = isLogged();
+  const history = useHistory();
+  useEffect(() => {
+    const checkFollow = (user) => {
+      const match = user?.followers.find((follower) => {
+        return follower._id === jwt.user._id;
+      });
+      return match;
+    };
+    const getUserProfile = async () => {
+      const userData = await getUser(jwt && jwt.token, userId);
+      if (userData.error) return setError(userData.error);
+      setUser(userData.data);
+      setFollowing(checkFollow(userData.data));
+    };
+    const getPostsUser = async () => {
+      const postData = await getUserPosts(jwt && jwt.token, userId);
+      if (postData.error) return setError(postData.error);
+      setUserPost(postData.data);
+    };
+    if(isLogged()){
+          getUserProfile();
+            getPostsUser(); 
+    }else {history.push("/login")};
+    return ()=>{
+      setUser(null);
+      setUserPost(null);
+    }
+  }, [jwt.token,userId]);
 
-    useEffect(()=>{
-        setLentFollower(user?.followers.length);
-        setLentFollowing(user?.following.length);
-    },[userId,user?.followers.length,user?.following.length])
+  useEffect(() => {
+    setLentFollower(user?.followers.length);
+    setLentFollowing(user?.following.length);
+  }, [userId, user?.followers.length, user?.following.length]);
 
-    function handleButtonClick (user){
-        setUser(user);
-        setFollowing(!following);
-    }
-   
-    const showError = ()=>{
-    return error && <div className="alert alert-danger">{error}</div>
-    }
-    const [Follow, setFollow] = useState(null);
-    const handleFollowModal = ()=>{
-        setFollow(true);
-    }
-    const handleFollowingModal = ()=>{
-        setFollow(false);
-    }
-    return (
-        <>
-        <NavBar currentUser={currentUser}/>
-        <div className="profle"> 
-        <div className="profile bg-white col-md-8 offset-2">
-            {error ? showError():<>
-             <div className="profile__header">
-                <div className="profile__info">
-                    <div className="profile__followers" onClick={()=>handleFollowModal()} style={{ cursor:"pointer" }} data-toggle="modal" data-target="#exampleModal">
-                    <h5>{lentFollower}</h5><h6>Followers</h6>
-                </div>
-                <div className="profile__edpeo">
-                    <div className="prolile__img">
-                    <Avatar src={`http://localhost:8888/api/user/photo/${userId}`}/>
-                </div>
-                {
-                    checkAuth(userId)?
-                    <div className="profile__Sitting">
-                    <Link to={`/edit/profile/${userId}`} ><SettingsIcon />
-                    </Link>
-                    </div>:<></>
-                   }
-                </div>
-                
-                <div className="profile__following" onClick={()=>handleFollowingModal()} style={{ cursor:"pointer" }} data-toggle="modal" data-target="#exampleModal">
-                    <h5>{lentFollowing}</h5><h6>Following</h6>
-                </div>
-                </div>
-            </div>
-            <div className="profile__adout">
-                <div className="user__name">
-                    <h4>@{user && user.UserName}</h4>
-                </div>
-            </div>
-            <div className="adout__info">
-                <div className="about">
-                <p>{user && user.about}</p>
-                </div>
-           </div>
-           { 
-               userPost?.length === 0 ?(<div>add first post</div>)
-                :
-               (userPost?.map(post =>(
-                <Posts post={post} key={post._id}/>
-              )
-              )
-              )
-           } 
-            {
-                !checkAuth(userId)?
-                    <div className="profile__follow">
-                <div className="btn__follow">
-               <FollowButton
-               following={following}
-               handleButtonClick={handleButtonClick}
-               token={jwt && jwt.token}
-               followId={userId && userId}
-               userId={jwt && jwt.user._id}
-               />
-                </div>
-                </div>
-                :(<></>)
-            }
+  function handleButtonClick(user) {
+    setUser(user);
+    setFollowing(!following);
+  }
+
+  const showError = () => {
+    return error && <div className="alert alert-danger">{error}</div>;
+  };
+  const [Follow, setFollow] = useState(null);
+  const handleFollowModal = () => {
+    setFollow(true);
+  };
+  const handleFollowingModal = () => {
+    setFollow(false);
+  };
+  return (
+    <>
+      <NavBar />
+      <div className="">
+        <div className="bg-white mx-auto px-3 py-4 md:block md:w-1/2 rounded-md">
+          {error ? (
+            showError()
+          ) : (
             <>
-            {
-            Follow?
-            <FollowUserDisplay jwt={jwt}  Follow={Follow} data={user && user.followers}/>:
-            <FollowUserDisplay Follow={Follow}  data={user && user.following}/>
-            
-        }
-        </>
-        </>
-        }
+              <div className="flex items-center justify-center">
+                <div className="flex w-1/2 items-center justify-around mb-1">
+                  <div
+                    className="flex justify-center"
+                    onClick={() => handleFollowModal()}
+                    style={{ cursor: "pointer" }}
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                  >
+                    <h5 className=" text-gray-600 font-semibold">
+                      {lentFollower}
+                    </h5>
+                    <h6 className="mx-2  text-gray-600 font-medium">
+                      Followers
+                    </h6>
+                  </div>
+                  <div className="relative mb-2">
+                    <div className="prolile__img">
+                      <Avatar
+                        src={`http://localhost:8888/api/user/photo/${userId}`}
+                      />
+                    </div>
+                    {checkAuth(userId) ? (
+                      <div className="absolute bg-gray-100 left-9 -bottom-2 pr-1 pl-1  rounded-2xl border-green-500 border-2">
+                        <Link to={`/edit/profile/${userId}`}>
+                          <SettingsIcon className="text-green-500 text-md" />
+                        </Link>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+
+                  <div
+                    className="flex justify-center"
+                    onClick={() => handleFollowingModal()}
+                    style={{ cursor: "pointer" }}
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                  >
+                    <h5 className="ml-2  text-gray-600 font-semibold">
+                      {lentFollowing}
+                    </h5>
+                    <h6 className="ml-2 text-gray-600 font-medium">
+                      Following
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <h4 className="text-gray-700 font-bold text-lg">
+                  @{user && user.UserName}
+                </h4>
+              </div>
+              <div className="flex justify-center">
+                <p className="text-gray-700 font-medium text-ms">
+                  {user && user.about}
+                </p>
+              </div>
+              {!checkAuth(userId) ? (
+                <div className="flex justify-center">
+                  <div className="btn__follow">
+                    <FollowButton
+                      following={following}
+                      handleButtonClick={handleButtonClick}
+                      token={jwt && jwt.token}
+                      followId={userId && userId}
+                      userId={jwt && jwt.user._id}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              <>
+                {Follow ? (
+                  <FollowUserDisplay
+                    jwt={jwt}
+                    Follow={Follow}
+                    data={user && user.followers}
+                  />
+                ) : (
+                  <FollowUserDisplay
+                    Follow={Follow}
+                    data={user && user.following}
+                  />
+                )}
+              </>
+            </>
+          )}
         </div>
-        
-        </div>
-        </>
-    )
+        {userPost?.length === 0 ? (
+                <div className="flex justify-center">add first post</div>
+              ) : (
+                userPost?.map((post) => (
+                    <Posts post={post} key={post._id} />
+                ))
+              )}
+      </div>
+    </>
+  );
 }
-export default Profile
+
+export default Profile;

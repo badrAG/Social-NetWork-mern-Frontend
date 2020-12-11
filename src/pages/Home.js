@@ -22,24 +22,29 @@ function Menu({ posts, currentUser }) {
     return () => {
       setLoading(false);
     };
-  }, [posts, loading, dispatch, token, userId]);
+  }, [loading, dispatch, token,userId]);
+  console.log(posts)
   return (
     <>
-      {token ? (
+      {currentUser ? (
         <>
-          <NavBar currentUser={currentUser && currentUser} />
-          <div className="row">
+          <NavBar />
+          <div className="flex justify-between">
             <div
-              className="col col-md-2 card__users"
-              style={styleToggel ? { margin: "0px" } : { marginLeft: "31px" }}
+              className="bg-gray-50 dark:bg-gray-700 hidden md:block  rounded-xl shadow-md md:w-2/5 mt-3 md:h-full"
+              style={styleToggel ? { marginTop: "0px" } : { marginLeft: "31px" }}
             >
               <Users styleToggel={styleToggel} />
             </div>
-            <div className="col-md-6 ms-12">
+            <div className="">
               <Postler />
-              {posts.posts &&
-                posts.posts.map(post => <Posts post={post} key={post._id} />)}
+              {
+                posts.posts?.map((post,i)=>(
+                  <Posts post={post && post} key={i}/>
+                ))
+              }
             </div>
+            <div className="md:w-2/6"></div>
           </div>
         </>
       ) : (

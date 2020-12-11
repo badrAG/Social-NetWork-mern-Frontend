@@ -113,16 +113,16 @@ const getUser =(token,userId)=>{
             Authorization : `Bearer ${token}`,
           }
         }
-           return axios
-            .get(`http://localhost:8888/api/${userId}`,config)
-            .then(res=>{
-                if(res.data.error){
-                   return {error : res.data.error}
-                }else{
-                   return {data : res.data}
-                }
-            })
-            .catch(err => console.log(err))
+            return  axios
+         .get(`http://localhost:8888/api/${userId}`,config)
+         .then(res=>{
+            if(res.data.error){
+               return {error : res.data.error}
+            }else{
+               return {data : res.data}
+            }
+        })
+        .catch(err => console.log(err))
 }
 const Follow =(userId,followId,token)=>{
     const config = {
