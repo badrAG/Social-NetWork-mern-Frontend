@@ -1,8 +1,5 @@
-.container{
+.post__container{
     background-color: white;
-    border-radius: 6px;
-    margin-bottom: 15px;
-      
 }
 .reaction{
     border-top: 1px solid rgb(197, 197, 197);
@@ -45,12 +42,7 @@ border-radius: 999px;
 background-color: whitesmoke;
 }
 .delete__post{
-    position: absolute;
-    background-color:white !important;
-    box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.4);
-    border-radius:9px;
-    padding: 10px;
-    display: flex;
+    background-color:white;
 }
 .option__post{
     position: relative;

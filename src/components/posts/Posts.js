@@ -12,6 +12,7 @@ import {
 import { isLogged } from "../../helpers/auth";
 import { useDispatch } from "react-redux";
 import Comments from "../comments/Comments";
+import { Link } from "react-router-dom";
 function Posts({ post }) {
   const userId = isLogged()?.user._id;
   const token = isLogged()?.token;
@@ -41,14 +42,16 @@ function Posts({ post }) {
     });
   };
   return (
-    <div className="bg-white shadow-md mx-auto mt-3 md:block md:w-1/2 rounded-md">
+    <div className="post__container dark:bg-gray-700 shadow-md mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
       <div className="flex justify-between items-center">
         <div className="mt-2.5 mx-3 flex justify-center items-center">
           <Avatar
             src={`http://localhost:8888/api/user/photo/${post.PostedBy._id}`}
           />
-          <h4 className="pl-2 font-medium">
+          <h4 className="pl-2 font-medium dark:text-gray-200">
+            <Link className="no-underline" to={`/@${post.PostedBy._id}`}>
             {post.PostedBy.UserName}
+            </Link>
             <p className="text-gray-400 font-normal text-xs pt-0.5">{date.toLocaleDateString()}</p>
           </h4>
         </div>
@@ -58,8 +61,8 @@ function Posts({ post }) {
             onClick={toggeler}
             style={{ cursor: "pointer" }}
           >
-            <MoreVertIcon />
-            <div className={toggle ? "delete__post bg-white" : "d-none"}>
+            <MoreVertIcon className="dark:text-gray-200 transition duration-500" />
+            <div className={toggle ? "delete__post absolute rounded-lg shadow-md p-2 flex dark:bg-gray-600 transition duration-500" : "hidden"}>
               <div
                 className="conter_delete flex"
                 onClick={() => {
@@ -67,7 +70,7 @@ function Posts({ post }) {
                 }}
               >
                 <DeleteIcon />
-                <p className="font-bold text-md mb-0">Remove</p>
+                <p className="font-bold text-md mb-0 dark:text-gray-200 transition duration-500">Remove</p>
               </div>
             </div>
           </span>
@@ -76,7 +79,7 @@ function Posts({ post }) {
         )}
       </div>
         <div className="">
-          <div className="mx-3 my-2">{post.text}</div>
+          <div className="mx-3 my-2 dark:text-white transition duration-500">{post.text}</div>
         </div>
         <div className="px-0 w-full">
           <img
@@ -97,29 +100,29 @@ function Posts({ post }) {
                   checkLike();
                 }}
               ></i>
-              <small className="font-bold ml-2">
+              <small className="font-bold ml-2 dark:text-gray-300">
                 {post.likes.length}
               </small>
             </h5>
           ) : (
             <h5 className="flex items-center">
               <i
-                className="far fa-heart text-2xl"
+                className="far fa-heart text-2xl dark:text-gray-300 transition duration-500"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   dispatch(Like(userId, postId, token));
                   checkLike();
                 }}
               ></i>
-              <small className="font-bold ml-2">
+              <small className="font-bold ml-2 dark:text-gray-300 transition duration-500">
                 {post.likes.length}
               </small>
             </h5>
           )}
         </div>
         <div className="pl-4 flex items-center">
-         <i className="far fa-comment-dots text-2xl"></i>
-          <small className="font-weight-bold ml-2">
+         <i className="far fa-comment-dots text-2xl dark:text-gray-300 transition duration-500"></i>
+          <small className="font-weight-bold ml-2 dark:text-gray-300 transition duration-500">
             {post.comments.length}
           </small>
         </div>
@@ -142,7 +145,7 @@ function Posts({ post }) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Write a comment..."
-          className="input_comment"
+          className="border-none dark:bg-gray-500 dark:text-gray-100 bg-gray-300 rounded-xl w-full text-sm ml-1 py-1 pl-1 focus:outline-none transition duration-500"
         />
       </div>
       {

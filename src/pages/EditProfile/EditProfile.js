@@ -87,7 +87,7 @@ function EditProfile({ userSuccess, userError }) {
         <div className="w-full md:w-1/2">
           <div className="">{showError()}</div>
           <div className="w-full">
-            <form onSubmit={handleFormSubmit} className="bg-white pt-3">
+            <form onSubmit={handleFormSubmit} className="editProf dark:bg-gray-700 mt-3 pt-3 shadow-md rounded-md transition duration-500">
               <div className="relative flex justify-center items-center">
                 <Avatar
                   src={`http://localhost:8888/api/user/photo/${userId}`}
@@ -114,7 +114,7 @@ function EditProfile({ userSuccess, userError }) {
                     placeholder="Name"
                     onChange={(e) => handleInputChange(e)}
                     value={user.name}
-                    className="form-control"
+                    className="form-control dark:bg-gray-500 dark:text-gray-50"
                   />
                 </div>
                 <div className="form-group">
@@ -124,7 +124,7 @@ function EditProfile({ userSuccess, userError }) {
                     placeholder="User Name"
                     onChange={(e) => handleInputChange(e)}
                     value={user.UserName.split(" ").join("")}
-                    className="form-control"
+                    className="form-control dark:bg-gray-500 dark:text-gray-50"
                   />
                 </div>
                 <div className="form-group">
@@ -135,7 +135,7 @@ function EditProfile({ userSuccess, userError }) {
                     placeholder="Bio"
                     onChange={(e) => handleInputChange(e)}
                     value={user.about}
-                    className="form-control"
+                    className="form-control dark:bg-gray-500 dark:text-gray-50"
                   />
                 </div>
                 <div className="form-group">
@@ -145,11 +145,11 @@ function EditProfile({ userSuccess, userError }) {
                     placeholder="Email"
                     onChange={(e) => handleInputChange(e)}
                     value={user.email}
-                    className="form-control"
+                    className="form-control dark:bg-gray-500 dark:text-gray-50"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                   />
-                  <small id="emailHelp" className="form-text text-muted">
+                  <small id="emailHelp" className="form-text text-muted dark:text-gray-200">
                     We'll never share your email with anyone else.
                   </small>
                 </div>
@@ -160,7 +160,7 @@ function EditProfile({ userSuccess, userError }) {
                     placeholder="Password"
                     onChange={(e) => handleInputChange(e)}
                     value={user.password || ""}
-                    className="form-control"
+                    className="form-control dark:bg-gray-500 dark:text-gray-50"
                   />
                 </div>
                 <div className="flex items-center justify-between">

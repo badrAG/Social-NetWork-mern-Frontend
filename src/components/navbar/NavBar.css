@@ -1,4 +1,10 @@
 .avater{
-    width: 23px !important;
-    height: 23px !important;
+    width: 28px !important;
+    height: 28px !important;
+}
+.navBar{
+    background-color: white;
+}
+.dropdown{
+    background-color: white;
 }

@@ -74,7 +74,7 @@ function Profile() {
     <>
       <NavBar />
       <div className="">
-        <div className="bg-white mx-auto px-3 py-4 md:block md:w-1/2 rounded-md">
+        <div className="profle dark:bg-gray-700 mx-auto px-3 py-4 md:block md:w-1/2 rounded-md transition duration-500">
           {error ? (
             showError()
           ) : (
@@ -88,10 +88,10 @@ function Profile() {
                     data-toggle="modal"
                     data-target="#exampleModal"
                   >
-                    <h5 className=" text-gray-600 font-semibold">
+                    <h5 className=" text-gray-600 dark:text-gray-100 font-semibold">
                       {lentFollower}
                     </h5>
-                    <h6 className="mx-2  text-gray-600 font-medium">
+                    <h6 className="mx-2  text-gray-600 dark:text-gray-100 font-medium">
                       Followers
                     </h6>
                   </div>
@@ -119,22 +119,22 @@ function Profile() {
                     data-toggle="modal"
                     data-target="#exampleModal"
                   >
-                    <h5 className="ml-2  text-gray-600 font-semibold">
+                    <h5 className="ml-2  text-gray-600 dark:text-gray-100 font-semibold">
                       {lentFollowing}
                     </h5>
-                    <h6 className="ml-2 text-gray-600 font-medium">
+                    <h6 className="ml-2 text-gray-600 dark:text-gray-100 font-medium">
                       Following
                     </h6>
                   </div>
                 </div>
               </div>
               <div className="flex justify-center">
-                <h4 className="text-gray-700 font-bold text-lg">
+                <h4 className="text-gray-700 dark:text-white font-bold text-lg">
                   @{user && user.UserName}
                 </h4>
               </div>
               <div className="flex justify-center">
-                <p className="text-gray-700 font-medium text-ms">
+                <p className="text-gray-700 dark:text-gray-50 font-medium text-ms">
                   {user && user.about}
                 </p>
               </div>

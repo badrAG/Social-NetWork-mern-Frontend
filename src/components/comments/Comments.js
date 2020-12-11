@@ -11,26 +11,29 @@ function Comments({postBy,comment,postId}) {
   const dispatch = useDispatch();
     return (
         <div className="d-flex pb-2">
-          <Link to={`/@${comment?.commentedBy._id}`}>
+          <Link className="no-underline" to={`/@${comment?.commentedBy._id}`}>
         <Avatar
           className="avatar_comment"
           src={`http://localhost:8888/api/user/photo/${comment?.commentedBy._id}`}
         /> </Link>
-        <div className="bg-gray-300 pl-1.5 ml-2 mt-0.5 w-full rounded-r-lg rounded-b-lg ">
-          <div className="font-bold">
-            <Link to={`/@${comment?.commentedBy._id}`}>
+        <div className="bg-gray-300 dark:bg-gray-500 pl-1.5 ml-2 mt-0.5 w-full rounded-r-lg rounded-b-lg transition duration-500">
+          <div className="flex items-center justify-between">
+            <Link className="font-bold dark:text-gray-50 no-underline" to={`/@${comment?.commentedBy._id}`}>
             {comment.commentedBy.UserName}
+            <small className="dark:text-gray-200">{" "}&bull;{" "}1h</small>
             </Link>
-              <small>{" "}&bull;{" "}1h</small>
+              
               {postBy === jwt?.user._id || comment?.commentedBy._id === jwt?.user._id ?
-              <small className="delete__comment cursor-pointer" 
+              <div className="group flex items-center justify-center w-5 h-5 p-1 text-gray-600 hover:bg-gray-400 rounded-full dark:text-gray-300 cursor-pointer transition duration-500" 
               onClick={() => {
                 dispatch(removeComment(comment?._id,postId, jwt.token));
               }}
-              ><DeleteIcon className="float-right"/></small>
+              >
+                <i className="far fa-trash-alt  float-right text-xs group-hover:line-through group-hover:text-red-500"></i>
+                </div>
               :<></>}
           </div>
-          <div className="pb-1.5 font-normal text-base">{comment.text}</div>
+          <div className="pb-1.5 font-normal  text-base dark:text-gray-50">{comment.text}</div>
         </div>
       </div>
     )

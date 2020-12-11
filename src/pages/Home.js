@@ -23,7 +23,6 @@ function Menu({ posts, currentUser }) {
       setLoading(false);
     };
   }, [loading, dispatch, token,userId]);
-  console.log(posts)
   return (
     <>
       {currentUser ? (
@@ -31,8 +30,8 @@ function Menu({ posts, currentUser }) {
           <NavBar />
           <div className="flex justify-between">
             <div
-              className="bg-gray-50 dark:bg-gray-700 hidden md:block  rounded-xl shadow-md md:w-2/5 mt-3 md:h-full"
-              style={styleToggel ? { marginTop: "0px" } : { marginLeft: "31px" }}
+              className="users_contener dark:bg-gray-700 hidden md:block rounded-xl shadow-md md:w-2/5 mt-3 md:h-full transition duration-500"
+              style={styleToggel ? { marginTop: "0px"} : { marginLeft: "31px"}}
             >
               <Users styleToggel={styleToggel} />
             </div>

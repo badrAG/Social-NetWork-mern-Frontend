@@ -18,14 +18,14 @@ function Postler() {
   };
   
   return (
-    <div className="bg-white p-1 shadow-md mx-auto mt-3 md:block md:w-1/2 rounded-md">
+    <div className="postele dark:bg-gray-700 p-1 shadow-md mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
       <div className="flex items-center justify-around p-2">
             <Avatar
               src={`http://localhost:8888/api/user/photo/${userId && userId}`}
             />
-          <div className=" bg-gray-200 rounded-2xl mx-1 w-full">
+          <div className=" bg-gray-200 dark:bg-gray-500 rounded-2xl mx-1 w-full transition duration-500">
             <input
-            className="border-none bg-transparent p-2 w-full"
+            className="border-none bg-transparent dark:text-gray-50 p-2 w-full outline-none"
               type="text"
               name="text"
               onKeyDown={(e) => {
@@ -41,10 +41,10 @@ function Postler() {
               placeholder="What on your mind..."
             />
           </div>
-          <label className="bg-gray-200 rounded-2xl cursor-pointer p-2 m-0 relative flex items-center w-20 text-gray-700">
+          <label className="bg-gray-200 dark:bg-gray-500 rounded-2xl cursor-pointer p-2 m-0 relative flex items-center w-20 text-gray-700 transition duration-500">
             <input type="file" className="absolute hidden overflow-hidden bottom-0" multiple accept="image/*" name="image" />
-            <AddPhotoAlternateIcon className="file__icon" />
-            <h6 className="m-0">Photo</h6>
+            <AddPhotoAlternateIcon className="file__icon dark:text-gray-300" />
+            <h6 className="m-0 dark:text-gray-300">Photo</h6>
           </label>
         </div>
     </div>

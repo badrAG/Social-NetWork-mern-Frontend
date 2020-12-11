@@ -1,4 +1,6 @@
-
+.editProf{
+    background-color: white;
+}
 .icon__upload>input{
      display: none;
     position: absolute;
