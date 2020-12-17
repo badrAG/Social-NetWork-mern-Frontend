@@ -39,17 +39,16 @@ function LogIn({userError,userSuccess}) {
     }
     return (
       
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} className="w-5/6">
         {showError()}
         {redirectUser()}
   <div className="form-group">
-    <input type="email" name="email" placeholder="Email" onChange={(e)=>handleInputChange(e)} value={user.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+    <input type="email" name="email" placeholder="Email" onChange={(e)=>handleInputChange(e)} value={user.email} className="form-control bg-white  rounded-full" id="exampleInputEmail1" aria-describedby="emailHelp"/>
   </div>
   <div className="form-group">
-    <input type="password" name="password" placeholder="Password" onChange={(e)=>handleInputChange(e)} value={user.password} className="form-control" />
+    <input type="password" name="password" placeholder="Password" onChange={(e)=>handleInputChange(e)} value={user.password} className="form-control bg-white  rounded-full" />
   </div>
-  <button type="submit" className="btn btn-primary">Log In</button>
+  <button type="submit" className="btn bg-green-600 w-full rounded-full text-pink-50 font-semibold">Log In</button>
  </form> 
     )
 }

@@ -8,48 +8,42 @@ import "./NavBar.css";
 import logo from "../../asset/logo.png";
 import useDarkMode from "../../theme/DarkMode";
 import { getUser, getAllUsers } from "../../redux/actions/userActions";
-import { connect, useDispatch } from "react-redux";
-function NavBar({ users }) {
+import { connect, useDispatch, useSelector } from "react-redux";
+function NavBar() {
   const [toggle, setToggle] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [search, setSearch] = React.useState("");
   const [userFound, setUserFound] = React.useState();
+  const [users, setUsers] = React.useState();
   const [user, setUser] = React.useState();
   const history = useHistory();
-  const userId = isLogged().user._id;
-  const jwt = isLogged().token;
+  const userId = isLogged()?.user._id;
+  const jwt = isLogged()?.token;
   const [colorTheme, setTheme] = useDarkMode();
   const toggeler = () => {
     setToggle((prev) => !prev);
   };
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user);
   useEffect(() => {
-    dispatch(getAllUsers(jwt && jwt));
-    const getUserfunc = async () => {
-      const userData = await getUser(jwt, userId);
-      if (userData.error) return console.log(userData.error);
-      setUser(userData.data);
-    };
-    if (loading) {
-      getUserfunc();
-    }
-    return () => {
-      setLoading(false);
-    };
-  }, [jwt, userId, loading, dispatch]);
+    setUser(userData.currentUser.user);
+    setUsers(userData.users);
+  }, [user]);
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
     const searchQuery = search.toLowerCase();
     const userFond = users?.filter((user) => {
-      return (user.UserName.toLowerCase().includes(searchQuery)||user.name.toLowerCase().includes(searchQuery));
+      return (
+        user.UserName.toLowerCase().includes(searchQuery) ||
+        user.name.toLowerCase().includes(searchQuery)
+      );
     });
-    if(e.target.value == ''){
+    if (e.target.value == "") {
       setUserFound(null);
-    }else{
+    } else {
       setUserFound(userFond);
     }
-    
   };
 
   // Close the dropdown menu if the user clicks outside of it
@@ -87,27 +81,29 @@ function NavBar({ users }) {
           />
           <SearchIcon className="dark:text-gray-100" />
         </div>
-        <div className=" search rounded-lg shadow-sm dropdown mt-1.5 dark:bg-gray-600 absolute w-full" >
+        <div className=" search rounded-lg shadow-sm dropdown mt-1.5 dark:bg-gray-600 absolute w-full">
           {userFound ? (
             userFound.map((user, i) => (
-              <div className="mt-1.5 py-1">
-                <Link className="no-underline" to={`/@${user._id}`} key={i}>
-                <div className="flex items-center py-1 px-2 cursor-pointer hover:bg-gray-500">
-                <Avatar
-                  className="avater "
-                  src={`http://localhost:8888/api/user/photo/${
-                    user && user._id
-                  }`}
-                />
-                <p className="text-lg font-semibold ml-1 dark:text-gray-100">@{user.UserName}</p>
-                </div>
+              <div className="mt-1.5 py-1" key={i}>
+                <Link className="no-underline" to={`/@${user._id}`}>
+                  <div className="flex items-center py-1 px-2 cursor-pointer hover:bg-gray-500">
+                    <Avatar
+                      className="avater "
+                      src={`http://localhost:8888/api/user/photo/${
+                        user && user._id
+                      }`}
+                    />
+                    <p className="text-lg font-semibold ml-1 dark:text-gray-100">
+                      @{user.UserName}
+                    </p>
+                  </div>
                 </Link>
               </div>
-              
             ))
           ) : (
             <div className="hidden"></div>
-          )}</div>
+          )}
+        </div>
       </div>
       <div className="flex content-around">
         <div className="flex items-center md:mr-2  pl-1 pr-2 ">
@@ -144,7 +140,7 @@ function NavBar({ users }) {
               onClick={() => setTheme(colorTheme)}
             >
               <p className="w-max text-black dark:text-gray-50 text-xs font-semibold px-3 py-2">
-                {colorTheme == "light" ?<>Light</>  : <>Dark</>} Mode
+                {colorTheme == "light" ? <>Light</> : <>Dark</>} Mode
               </p>
               {colorTheme == "light" ? (
                 <i className="far fa-sun text-yellow-400"></i>
@@ -158,7 +154,7 @@ function NavBar({ users }) {
                 className="w-max text-black dark:text-gray-50 text-xs font-semibold px-3 py-2 no-underline"
                 onClick={() => {
                   logout(() => {
-                    history.push("/login");
+                    history.push("/Login");
                   });
                 }}
               >
@@ -171,7 +167,5 @@ function NavBar({ users }) {
     </div>
   );
 }
-const mapStateToProps = ({ user: { users } }) => ({
-  users,
-});
-export default connect(mapStateToProps, null)(NavBar);
+
+export default NavBar;

@@ -25,7 +25,7 @@ function Users({ users, userError, currentUser, styleToggle }) {
     <>
       {styleToggle ? <NavBar /> : <></>}
       <div className={styleToggle ? " flex justify-center w-full mt-2 " : ""}>
-          <div className={styleToggle ?"users_contener w-1/2 dark:bg-gray-700 rounded-md shadow-md transition duration-500":""}>
+          <div className={styleToggle ? "users_contener w-1/2 dark:bg-gray-700 rounded-md shadow-md transition duration-500" : ""}>
             <div className="">
               <div className="p-2 mb-2 border-gray-500 border-solid border-b-2 border-opacity-30">
                 <h6 className="text-lg font-semibold dark:text-gray-50">Suggestions For You</h6>

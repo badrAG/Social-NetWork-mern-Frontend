@@ -77,7 +77,6 @@ function EditProfile({ userSuccess, userError }) {
     user.email && userData.append("email", user.email);
     user.password && userData.append("password", user.password);
     user.image && userData.append("image", user.image);
-    console.log(userData);
     dispatch(updateProfile(userData, jwt.token, userId));
   };
   return (

@@ -11,6 +11,7 @@ import FollowUserDisplay from "../../Follower/FollowUserDisplay";
 import Posts from "../../components/posts/Posts";
 import { getUserPosts } from "../../redux/actions/postAction";
 import { connect, useDispatch } from "react-redux";
+import PostsLoading from "../../components/loading/PostsLoading";
 
 function Profile() {
   const { userId } = useParams();
@@ -128,7 +129,7 @@ function Profile() {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-center">
+              {user ? (<><div className="flex justify-center">
                 <h4 className="text-gray-700 dark:text-white font-bold text-lg">
                   @{user && user.UserName}
                 </h4>
@@ -137,7 +138,16 @@ function Profile() {
                 <p className="text-gray-700 dark:text-gray-50 font-medium text-ms">
                   {user && user.about}
                 </p>
-              </div>
+              </div></>) : (
+              <><div className="flex justify-center">
+              <h4 className="bg-gray-400 w-16 dark:bg-gray-400 h-2 rounded-full">
+              </h4>
+            </div>
+            <div className="flex justify-center mt-1">
+              <p className="bg-gray-400 w-28 h-2 rounded-full">
+              </p>
+            </div></>)
+              }
               {!checkAuth(userId) ? (
                 <div className="flex justify-center">
                   <div className="btn__follow">
@@ -172,11 +182,12 @@ function Profile() {
           )}
         </div>
         {userPost?.length === 0 ? (
-                <div className="flex justify-center">add first post</div>
+                <div className="flex justify-center font-semibold">add first post</div>
               ) : (
+                userPost ?
                 userPost?.map((post) => (
                     <Posts post={post} key={post._id} />
-                ))
+                )):([1,2,3,4].map((item,i)=> <PostsLoading key={i}/>))
               )}
       </div>
     </>

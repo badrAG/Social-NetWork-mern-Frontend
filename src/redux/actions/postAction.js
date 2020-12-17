@@ -1,7 +1,7 @@
 import Axios from "axios";
 import postTypes from "../types/postTypes";
 
-export const getAllPosts = (token, userId) => {
+export const getAllPosts = (token, userId,num) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -10,10 +10,12 @@ export const getAllPosts = (token, userId) => {
   return (dispatch) => {
     Axios.get(`http://localhost:8888/api/all/posts/${userId}`, config)
       .then((res) => {
+        if(res.data.length > num - 5){
+        const array = res.data.slice(0, num);
         dispatch({
           type: postTypes.GET_ALL,
-          payload: res.data,
-        });
+          payload: array,
+        });}
       })
       .catch((err) => console.log(err));
   };

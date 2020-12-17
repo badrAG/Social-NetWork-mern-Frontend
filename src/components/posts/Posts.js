@@ -41,8 +41,8 @@ function Posts({ post }) {
       }
     });
   };
-  return (
-    <div className="post__container dark:bg-gray-700 shadow-md mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
+   return (
+    <div className="post__container w-full dark:bg-gray-700 shadow-md md:mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
       <div className="flex justify-between items-center">
         <div className="mt-2.5 mx-3 flex justify-center items-center">
           <Avatar
@@ -81,12 +81,22 @@ function Posts({ post }) {
         <div className="">
           <div className="mx-3 my-2 dark:text-white transition duration-500">{post.text}</div>
         </div>
-        <div className="px-0 w-full">
-          <img
-          className="w-full object-cover"
-            src="https://www.publicdomainpictures.net/pictures/320000/velka/background-image.png"
+        <div className="px-0 w-full ">
+          {post.image && <img
+          className="w-full h-full"
+            src={post.image}
             alt="postimage"
           />
+          }
+          { post.video && 
+          <iframe
+          className="w-full h-80"
+          src={post.video}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title={post.video}
+        ></iframe>}
       </div>
       <div className="flex items-center px-4 py-2">
         <div className="">
@@ -155,7 +165,7 @@ function Posts({ post }) {
       }
     </div>
       </div>
-  );
+   );
 }
 
 export default Posts;

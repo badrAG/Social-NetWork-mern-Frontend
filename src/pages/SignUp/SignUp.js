@@ -42,23 +42,22 @@ function SignUp({userError,userSuccess}) {
     }
     return (
       
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} className="w-5/6">
         {showError()}
         {redirectUser()}
        <div className="form-group">
-            <input type="text" name="name" placeholder="Name" onChange={(e)=>handleInputChange(e)} value={user.name} className="form-control" />
+            <input type="text" name="name" placeholder="Name" onChange={(e)=>handleInputChange(e)} value={user.name} className="form-control bg-gray-100  rounded-full" />
         </div>
        <div className="form-group">
-    <input type="text" name="UserName" placeholder="User Name" onChange={(e)=>handleInputChange(e)} value={user.UserName.split(" ").join("")} className="form-control" />
+    <input type="text" name="UserName" placeholder="User Name" onChange={(e)=>handleInputChange(e)} value={user.UserName.split(" ").join("")} className="form-control bg-gray-100  rounded-full" />
   </div>
   <div className="form-group">
-    <input type="email" name="email" placeholder="Email" onChange={(e)=>handleInputChange(e)} value={user.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+    <input type="email" name="email" placeholder="Email" onChange={(e)=>handleInputChange(e)} value={user.email} className="form-control bg-gray-100  rounded-full" id="exampleInputEmail1" aria-describedby="emailHelp"/>
   </div>
   <div className="form-group">
-    <input type="password" name="password" placeholder="Password" onChange={(e)=>handleInputChange(e)} value={user.password} className="form-control" />
+    <input type="password" name="password" placeholder="Password" onChange={(e)=>handleInputChange(e)} value={user.password} className="form-control bg-gray-100  rounded-full" />
   </div>
-  <button type="submit" className="btn btn-primary">Sign In</button>
+  <button type="submit" className="btn  bg-gray-50 w-full rounded-full text-green-700 font-semibold">Sign In</button>
  </form> 
     )
 }
