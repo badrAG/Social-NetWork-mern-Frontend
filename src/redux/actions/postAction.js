@@ -1,26 +1,41 @@
 import Axios from "axios";
 import postTypes from "../types/postTypes";
 
-export const getAllPosts = (token, userId,num) => {
+export const getAllPosts = (token, userId,count) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   return (dispatch) => {
-    Axios.get(`http://localhost:8888/api/all/posts/${userId}`, config)
+    Axios.get(`http://localhost:8888/api/all/posts/${userId}?skip=${count}`, config)
       .then((res) => {
-        if(res.data.length > num - 5){
-        const array = res.data.slice(0, num);
         dispatch({
           type: postTypes.GET_ALL,
-          payload: array,
-        });}
+          payload: res.data,
+        });
       })
       .catch((err) => console.log(err));
   };
 };
 
+export const getMorePosts = (token, userId,count) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return (dispatch) => {
+    Axios.get(`http://localhost:8888/api/all/posts/${userId}?skip=${count}`, config)
+      .then((res) => {
+        dispatch({
+          type: "GET_MORE",
+          payload: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+};
 export const getUserPosts = (token, userId) => {
   const config = {
     headers: {

@@ -19,7 +19,7 @@ function Postler() {
     setPostPicture(URL.createObjectURL(e.target.files[0]));
     setFile(e.target.files[0]);
     setVideo('');
-  }; 
+  };
   const count=5
   const handlePost = async (e) => {
     if (e.key === "Enter"){

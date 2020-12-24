@@ -1,6 +1,5 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core'
-import DeleteIcon from "@material-ui/icons/Delete";
 import { Link } from 'react-router-dom';
 import { isLogged } from '../../helpers/auth';
 import { useDispatch } from 'react-redux';

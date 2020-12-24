@@ -7,26 +7,21 @@ import { isLogged, logout } from "../../helpers/auth";
 import "./NavBar.css";
 import logo from "../../asset/logo.png";
 import useDarkMode from "../../theme/DarkMode";
-import { getUser, getAllUsers } from "../../redux/actions/userActions";
 import { connect, useDispatch, useSelector } from "react-redux";
 function NavBar() {
   const [toggle, setToggle] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
   const [search, setSearch] = React.useState("");
   const [userFound, setUserFound] = React.useState();
   const [users, setUsers] = React.useState();
   const [user, setUser] = React.useState();
   const history = useHistory();
-  const userId = isLogged()?.user._id;
-  const jwt = isLogged()?.token;
   const [colorTheme, setTheme] = useDarkMode();
   const toggeler = () => {
     setToggle((prev) => !prev);
   };
-  const dispatch = useDispatch();
   const userData = useSelector((state) => state.user);
   useEffect(() => {
-    setUser(userData.currentUser.user);
+    setUser(userData?.currentUser.user);
     setUsers(userData.users);
   }, [user]);
 

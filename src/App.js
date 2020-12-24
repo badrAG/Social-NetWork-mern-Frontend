@@ -7,6 +7,7 @@ import Users from "./components/user/Users";
 import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Auth from "./pages/auth/Auth";
+import ModalStory from "./components/Modal/ModalStory";
 
 function App({ currentUser }) {
   const dispatch = useDispatch();
@@ -32,6 +33,10 @@ function App({ currentUser }) {
           <Route
             path="/edit/profile/:userId"
             component={() => <EditProfile />}
+          />
+          <Route
+            path="/story/@:UserName/:storyId"
+            component={() => <ModalStory />}
           />
           <Route path="/Signup" component={() => <Auth toggleLink={false} />} />
           <Route path="/Login" component={() => <Auth toggleLink={true} />} />

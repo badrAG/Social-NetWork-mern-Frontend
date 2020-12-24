@@ -1,0 +1,30 @@
+.header__story {
+  background: linear-gradient(
+    180deg,
+    rgba(38, 38, 38, 0.8) 0%,
+    rgba(38, 38, 38, 0) 100%
+  );
+}
+.progress-bar-active {
+  animation-name: ProgressBar;
+  animation-timing-function: linear;
+}
+.progress-bar {
+  background-color: white;
+  width: 0%;
+  height: 2px;
+}
+.progress-bar-finished {
+  background-color: white;
+  border-radius: 7px;
+  width: 100%;
+  height: 2px;
+}
+@keyframes ProgressBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

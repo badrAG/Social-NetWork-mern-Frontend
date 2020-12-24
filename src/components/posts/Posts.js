@@ -10,7 +10,7 @@ import {
   Like,
 } from "../../redux/actions/postAction";
 import { isLogged } from "../../helpers/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Comments from "../comments/Comments";
 import { Link } from "react-router-dom";
 function Posts({ post }) {

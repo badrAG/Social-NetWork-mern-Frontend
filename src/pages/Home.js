@@ -8,8 +8,10 @@ import Users from "../components/user/Users";
 import "../components/user/Users.css";
 import Auth from './auth/Auth'
 import { isLogged } from "../helpers/auth";
-import { getAllPosts } from "../redux/actions/postAction";
+import { getAllPosts,getMorePosts } from "../redux/actions/postAction";
 import PostsLoading from "../components/loading/PostsLoading";
+import Stories from "../components/Stories/Stories";
+import AddStory from "../components/Modal/AddStory";
 
 function Menu({ posts, currentUser }) {
   const styleToggel = false;
@@ -17,8 +19,8 @@ function Menu({ posts, currentUser }) {
   const userId = isLogged() && isLogged().user._id;
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
   const [count, setCount] = useState(5);
-   
   const loadMore =()=>{
     if(window.innerHeight + document.documentElement.scrollTop + 1 > document.scrollingElement.scrollHeight){
       setLoading(true);
@@ -26,7 +28,11 @@ function Menu({ posts, currentUser }) {
   }
   useEffect(() => {
     if (loading) {
-      dispatch(getAllPosts(token, userId,count));
+      if(count === 5){
+        dispatch(getAllPosts(token, userId,count));
+      }else{
+        dispatch(getMorePosts(token, userId,count));
+      }
       setLoading(false);
       setCount(count + 5);
     }
@@ -36,6 +42,9 @@ function Menu({ posts, currentUser }) {
     }
     
   }, [loading, dispatch, token,userId,count]);
+const openStory = ()=>{
+  setOpen(!open);
+}
   return (
     <>
       {currentUser ? (
@@ -49,6 +58,7 @@ function Menu({ posts, currentUser }) {
               <Users styleToggel={styleToggel} />
             </div>
             <div className="w-full">
+              <Stories openStory={openStory} />
               <Postler />
               {
                 posts.posts ?
@@ -56,12 +66,11 @@ function Menu({ posts, currentUser }) {
                   <Posts post={post && post} key={i}/>
                 )):([1,2,3,4].map((item,i)=> <PostsLoading key={i}/>))
               }
-              {loading && <div className="flex justify-center">
-              <div className="rounded-full w-12 h-12 bg-gray-400 animate-pulse"></div>
-              </div>}
+
             </div>
             <div className="md:w-2/6"></div>
           </div>
+         {open && <AddStory openStory={openStory}/>}
         </>
       ) : (
         <Auth toggleLink={true}/>
