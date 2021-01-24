@@ -21,7 +21,7 @@ function Menu({ posts, currentUser }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(0);
   const loadMore =()=>{
     if(window.innerHeight + document.documentElement.scrollTop + 1 > document.scrollingElement.scrollHeight){
       setLoading(true);
@@ -29,7 +29,7 @@ function Menu({ posts, currentUser }) {
   }
   useEffect(() => {
     if (loading) {
-      if(count === 5){
+      if(count === 0){
         dispatch(getAllPosts(token, userId,count));
       }else{
         dispatch(getMorePosts(token, userId,count));
