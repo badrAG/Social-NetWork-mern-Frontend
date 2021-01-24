@@ -1,7 +1,8 @@
-https://api-social-network-mern.herokuapp.com/import React, { useEffect, useState } from "react";
-import { Avatar } from "@material-ui/core";
-import { connect, useDispatch, useSelector } from "react-redux";
+https://api-social-network-mern.herokuapp.com/
+import React, { useEffect } from "react";
+import { connect, useDispatch} from "react-redux";
 import { Link } from "react-router-dom";
+import { Avatar } from "@material-ui/core";
 import { getStories } from "../../redux/actions/storyAction";
 import { isLogged } from "../../helpers/auth";
 
