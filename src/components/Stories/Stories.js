@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+https://api-social-network-mern.herokuapp.com/import React, { useEffect, useState } from "react";
 import { Avatar } from "@material-ui/core";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -17,14 +17,14 @@ function Stories({ stories,openStory }) {
       <div className="flex items-start space-x-2 overflow-x-auto">
         <Avatar
           className="cursor-pointer"
-          src={`http://localhost:8888/api/user/photo/${userId && userId}`}
+          src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${userId && userId}`}
           onClick={() => openStory()}
         />
         {stories.stories?.map((item, i) => (
           <Link key={i} to={`/story/@${item.StoryBy?.UserName}/${item?._id}`}>
             <Avatar
               className="border-green-600 border-2 cursor-pointer"
-              src={`http://localhost:8888/api/user/photo/${item.StoryBy?._id}`}
+              src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${item.StoryBy?._id}`}
             />
           </Link>
         ))}

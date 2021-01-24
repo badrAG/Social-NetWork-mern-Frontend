@@ -98,7 +98,7 @@ function Profile({userPosts,posts}) {
                   <div className="relative mb-2">
                     <div className="prolile__img">
                       <Avatar
-                        src={`http://localhost:8888/api/user/photo/${userId}`}
+                        src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${userId}`}
                       />
                     </div>
                     {checkAuth(userId) ? (

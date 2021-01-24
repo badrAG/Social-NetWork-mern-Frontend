@@ -84,7 +84,7 @@ function NavBar() {
                   <div className="flex items-center py-1 px-2 cursor-pointer hover:bg-gray-500">
                     <Avatar
                       className="avater "
-                      src={`http://localhost:8888/api/user/photo/${
+                      src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${
                         user && user._id
                       }`}
                     />
@@ -108,7 +108,7 @@ function NavBar() {
           >
             <Avatar
               className="avater"
-              src={`http://localhost:8888/api/user/photo/${user && user._id}`}
+              src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${user && user._id}`}
             />
             <h4 className="hidden md:ml-1 md:block md:font-semibold md:text-lg font-semibold">
               @{user && user.UserName}

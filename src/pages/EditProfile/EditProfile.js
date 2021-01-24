@@ -92,7 +92,7 @@ function EditProfile({ userSuccess, userError }) {
             <form onSubmit={handleFormSubmit} className="editProf dark:bg-gray-700 mt-3 pt-3 shadow-md rounded-md transition duration-500">
               <div className="relative flex justify-center items-center">
                 <Avatar
-                  src={postPicture ? postPicture : `http://localhost:8888/api/user/photo/${userId}`}
+                  src={postPicture ? postPicture : `https://api-social-network-mern.herokuapp.com/api/user/photo/${userId}`}
                   style={{ width: "172px", height: "172px" }}
                   className=""
                 />

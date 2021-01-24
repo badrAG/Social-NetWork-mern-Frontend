@@ -78,7 +78,7 @@ function Postler() {
     <div className="postele dark:bg-gray-700 p-1 shadow-md mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
       <div className="flex items-center justify-around p-2">
         <Avatar
-          src={`http://localhost:8888/api/user/photo/${userId && userId}`}
+          src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${userId && userId}`}
         />
         <div className=" bg-gray-200 dark:bg-gray-500 rounded-2xl mx-1 w-full transition duration-500">
           <input

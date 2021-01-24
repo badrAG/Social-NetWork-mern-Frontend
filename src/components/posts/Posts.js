@@ -46,7 +46,7 @@ function Posts({ post }) {
       <div className="flex justify-between items-center">
         <div className="mt-2.5 mx-3 flex justify-center items-center">
           <Avatar
-            src={`http://localhost:8888/api/user/photo/${post.PostedBy._id}`}
+            src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${post.PostedBy._id}`}
           />
           <h4 className="pl-2 font-medium dark:text-gray-200">
             <Link className="no-underline" to={`/@${post.PostedBy._id}`}>
@@ -141,7 +141,7 @@ function Posts({ post }) {
       <div className="flex justify-between pb-2 comment">
         <Avatar
           className="avatar_comment"
-          src={`http://localhost:8888/api/user/photo/${userId && userId}`}
+          src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${userId && userId}`}
         />
         <input
           type="text"

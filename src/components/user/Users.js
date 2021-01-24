@@ -51,7 +51,7 @@ function Users({ users, userError, currentUser, styleToggle }) {
                         <div className="flex items-center px-3 py-1">
                           <div className={styleToggle ? "user_avatar" : ""}>
                             <Avatar
-                              src={`http://localhost:8888/api/user/photo/${user && user._id}`}
+                              src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${user && user._id}`}
                             />
                           </div>
                           <div className="pl-2">

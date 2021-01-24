@@ -52,7 +52,7 @@ function FollowOption({ userId }) {
       >
         <div className="flex items-center">
           <Avatar
-            src={`http://localhost:8888/api/user/photo/${user && user._id}`}
+            src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${user && user._id}`}
           />
           <h6 className="follow__name ml-2 dark:text-gray-50">
             {user && user.UserName}

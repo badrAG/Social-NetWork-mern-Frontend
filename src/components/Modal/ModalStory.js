@@ -69,7 +69,7 @@ const deleteImage =(index)=>{
            <div className="flex items-center">
              <Avatar
               style={{ width: "27px", height: "27px" }}
-              src={`http://localhost:8888/api/user/photo/${story.story.StoryBy?._id}`}
+              src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${story.story.StoryBy?._id}`}
             />
             <div className="flex flex-col pl-2">
               <span className="text-sm text-white font-bold pr-1">
