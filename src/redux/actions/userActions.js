@@ -10,7 +10,7 @@ const getAllUsers = (token)=>{
     }
     return dispatch =>{
         axios
-        .get("http://localhost:8888/api/all/users",config)
+        .get("https://api-social-network-mern.herokuapp.com/api/all/users",config)
         .then(res=>{
             if(res.data.error){
                 dispatch({
@@ -31,7 +31,7 @@ const getAllUsers = (token)=>{
 const createUser = (user)=>{
     return dispatch =>{
         axios
-        .post("http://localhost:8888/api/users/create",user)
+        .post("https://api-social-network-mern.herokuapp.com/api/users/create",user)
         .then(res=>{
             if(res.data.error){
                 dispatch({
@@ -57,7 +57,7 @@ const updateProfile = (user,token,userId)=>{
         }
     return dispatch =>{
         axios
-        .put(`http://localhost:8888/api/updateuser/${userId}`,user,config)
+        .put(`https://api-social-network-mern.herokuapp.com/api/updateuser/${userId}`,user,config)
         .then(res=>{
             if(res.data.error){
                 dispatch({
@@ -79,7 +79,7 @@ const updateProfile = (user,token,userId)=>{
 const login = (user)=>{
     return dispatch =>{
         axios
-        .post("http://localhost:8888/api/auth/login",user)
+        .post("https://api-social-network-mern.herokuapp.com/api/auth/login",user)
         .then(res=>{
             if(res.data.error){
                 dispatch({
@@ -114,7 +114,7 @@ const getUser =(token,userId)=>{
           }
         }
             return  axios
-         .get(`http://localhost:8888/api/${userId}`,config)
+         .get(`https://api-social-network-mern.herokuapp.com/api/${userId}`,config)
          .then(res=>{
             if(res.data.error){
                return {error : res.data.error}
@@ -131,7 +131,7 @@ const Follow =(userId,followId,token)=>{
           }
         }
            return axios
-            .put(`http://localhost:8888/api/user/add/follow/`,{userId,followId},config)
+            .put(`https://api-social-network-mern.herokuapp.com/api/user/add/follow/`,{userId,followId},config)
             .then(res=>{
                 if(res.data.error){
                    return {error : res.data.error}
@@ -149,7 +149,7 @@ const unFollow =(userId,followId,token)=>{
           }
         }
            return axios
-            .put(`http://localhost:8888/api/user/remove/unFollow`,{userId,followId},config)
+            .put(`https://api-social-network-mern.herokuapp.com/api/user/remove/unFollow`,{userId,followId},config)
             .then(res=>{
                 if(res.data.error){
                    return {error : res.data.error}
@@ -167,7 +167,7 @@ const deleteProfil = (token,userId)=>{
         }
     return dispatch =>{
         axios
-        .delete(`http://localhost:8888/api/users/${userId}`,config)
+        .delete(`https://api-social-network-mern.herokuapp.com/api/users/${userId}`,config)
         .then(res=>{
             if(res.data.error){
                 dispatch({

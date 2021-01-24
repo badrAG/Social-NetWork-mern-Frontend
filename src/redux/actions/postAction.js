@@ -8,7 +8,7 @@ export const getAllPosts = (token, userId,count) => {
     },
   };
   return (dispatch) => {
-    Axios.get(`/api/all/posts/${userId}?skip=${count}`, config)
+    Axios.get(`https://api-social-network-mern.herokuapp.com/api/all/posts/${userId}?skip=${count}`, config)
       .then((res) => {
         dispatch({
           type: postTypes.GET_ALL,
@@ -27,7 +27,7 @@ export const getMorePosts = (token, userId,count) => {
     },
   };
   return (dispatch) => {
-    Axios.get(`http://localhost:8888/api/all/posts/${userId}?skip=${count}`, config)
+    Axios.get(`https://api-social-network-mern.herokuapp.com/api/all/posts/${userId}?skip=${count}`, config)
       .then((res) => {
         dispatch({
           type: "GET_MORE",
@@ -44,7 +44,7 @@ export const getUserPosts = (token, userId) => {
     },
   };
   return dispatch =>{
-    Axios.get(`http://localhost:8888/api/posts/by/${userId}`, config)
+    Axios.get(`https://api-social-network-mern.herokuapp.com/api/posts/by/${userId}`, config)
       .then((res) => {
         dispatch({
           type: postTypes.USER_POSTS,
@@ -61,7 +61,7 @@ export const addPost = (token, post, userId) => {
     },
   };
   return (dispatch) => {
-    Axios.post(`http://localhost:8888/api/post/create/${userId}`, post, config)
+    Axios.post(`https://api-social-network-mern.herokuapp.com/api/post/create/${userId}`, post, config)
       .then((res) => {
         dispatch({
           type: postTypes.ADD_POST,
@@ -79,7 +79,7 @@ export const Like = (userId, postId, token) => {
   };
   return (dispatch)=>{
      Axios
-    .put(`http://localhost:8888/api/post/like`, { userId, postId }, config)
+    .put(`https://api-social-network-mern.herokuapp.com/api/post/like`, { userId, postId }, config)
     .then((res) => {
       dispatch({
         type: postTypes.LIKE_UNLIKE_POST,
@@ -98,7 +98,7 @@ export const unLike = (userId, postId, token) => {
   };
   return (dispatch)=>{
      Axios
-    .put(`http://localhost:8888/api/post/unlike`, { userId, postId }, config)
+    .put(`https://api-social-network-mern.herokuapp.com/api/post/unlike`, { userId, postId }, config)
     .then((res) => {
       dispatch({
         type: postTypes.LIKE_UNLIKE_POST,
@@ -116,7 +116,7 @@ export const addComment = (text,userId, postId, token) => {
     };
     return (dispatch)=>{
        Axios
-      .put(`http://localhost:8888/api/post/comment`,{ userId, postId,text }, config)
+      .put(`https://api-social-network-mern.herokuapp.com/api/post/comment`,{ userId, postId,text }, config)
       .then((res) => {
         dispatch({
           type: postTypes.ADD_DELETE_COMMENT,
@@ -134,7 +134,7 @@ export const addComment = (text,userId, postId, token) => {
     };
     return (dispatch)=>{
        Axios
-      .put(`http://localhost:8888/api/post/unComment`, { postId,commentId }, config)
+      .put(`https://api-social-network-mern.herokuapp.com/api/post/unComment`, { postId,commentId }, config)
       .then((res) => {
         dispatch({
           type: postTypes.ADD_DELETE_COMMENT,
@@ -152,7 +152,7 @@ export const deletePost = ( postId, token) => {
     };
     return (dispatch)=>{
        Axios
-      .delete(`http://localhost:8888/api/post/${postId}`, config)
+      .delete(`https://api-social-network-mern.herokuapp.com/api/post/${postId}`, config)
       .then((res) => {
         dispatch({
           type: postTypes.REMOVE_POST,

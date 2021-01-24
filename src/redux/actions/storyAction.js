@@ -8,7 +8,7 @@ export const getStories = (token, userId) => {
     },
   };
   return (dispatch) => {
-    Axios.get(`http://localhost:8888/api/all/storeis/${userId}`, config)
+    Axios.get(`https://api-social-network-mern.herokuapp.com/api/all/storeis/${userId}`, config)
       .then((res) => {
         dispatch({
           type: storyType.GET_ALL_STORY,
@@ -26,7 +26,7 @@ export const getStory = (token, storyId) => {
     },
   };
   return (dispatch) => {
-    Axios.get(`http://localhost:8888/api/story/${storyId}`, config)
+    Axios.get(`https://api-social-network-mern.herokuapp.com/api/story/${storyId}`, config)
       .then((res) => {
         dispatch({
           type: storyType.GET_STORY,
@@ -43,7 +43,7 @@ export const addStory = (token,data, userId) => {
     },
   };
   return (dispatch) => {
-    Axios.post(`http://localhost:8888/api/story/create/${userId}`,data, config)
+    Axios.post(`https://api-social-network-mern.herokuapp.com/api/story/create/${userId}`,data, config)
       .then((res) => {
         dispatch({
           type: storyType.ADD_STORY,
@@ -60,7 +60,7 @@ export const NewStory = (token,data, userId) => {
     },
   };
   return (dispatch) => {
-    Axios.put(`http://localhost:8888/api/new/story/${userId}`,data, config)
+    Axios.put(`https://api-social-network-mern.herokuapp.com/api/new/story/${userId}`,data, config)
       .then((res) => {
         dispatch({
           type: storyType.NEW_STORY,
@@ -78,7 +78,7 @@ export const removeImage = (imageId, storyId, token) => {
   };
   return (dispatch)=>{
      Axios
-    .put(`http://localhost:8888/api/story/remove`, { storyId,imageId }, config)
+    .put(`https://api-social-network-mern.herokuapp.com/api/story/remove`, { storyId,imageId }, config)
     .then((res) => {
       dispatch({
         type: storyType.DELETE_IMAGE,
@@ -97,7 +97,7 @@ export const deleteStory = (storyId, token) => {
   };
   return (dispatch)=>{
      Axios
-    .delete(`http://localhost:8888/api/story/delete/${storyId}`, config)
+    .delete(`https://api-social-network-mern.herokuapp.com/api/story/delete/${storyId}`, config)
     .then((res) => {
       dispatch({
         type: storyType.REMOVE_STORY,
