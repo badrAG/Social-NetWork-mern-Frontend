@@ -8,12 +8,13 @@ export const getAllPosts = (token, userId,count) => {
     },
   };
   return (dispatch) => {
-    Axios.get(`http://localhost:8888/api/all/posts/${userId}?skip=${count}`, config)
+    Axios.get(`/api/all/posts/${userId}?skip=${count}`, config)
       .then((res) => {
         dispatch({
           type: postTypes.GET_ALL,
           payload: res.data,
         });
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -42,15 +43,16 @@ export const getUserPosts = (token, userId) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return Axios.get(`http://localhost:8888/api/posts/by/${userId}`, config)
-    .then((res) => {
-      if (res.data.error) {
-        return { error: res.data.error };
-      } else {
-        return { data: res.data };
-      }
-    })
-    .catch((err) => console.log(err));
+  return dispatch =>{
+    Axios.get(`http://localhost:8888/api/posts/by/${userId}`, config)
+      .then((res) => {
+        dispatch({
+          type: postTypes.USER_POSTS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 };
 export const addPost = (token, post, userId) => {
   const config = {

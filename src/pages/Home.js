@@ -12,10 +12,11 @@ import { getAllPosts,getMorePosts } from "../redux/actions/postAction";
 import PostsLoading from "../components/loading/PostsLoading";
 import Stories from "../components/Stories/Stories";
 import AddStory from "../components/Modal/AddStory";
+import Chat from "../components/Chat/Chat";
 
 function Menu({ posts, currentUser }) {
   const styleToggel = false;
-  const token = isLogged().token;
+  const token = isLogged()?.token;
   const userId = isLogged() && isLogged().user._id;
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,11 @@ function Menu({ posts, currentUser }) {
     }
     
   }, [loading, dispatch, token,userId,count]);
+  useEffect(() => {
+    dispatch({
+      type : "CLEAR_STORY",
+  });
+  }, [dispatch])
 const openStory = ()=>{
   setOpen(!open);
 }
@@ -61,8 +67,8 @@ const openStory = ()=>{
               <Stories openStory={openStory} />
               <Postler />
               {
-                posts.posts ?
-                posts.posts?.map((post,i)=>(
+                posts.posts && !posts.posts.error && !loading ?
+               posts.posts && posts.posts.map((post,i)=>(
                   <Posts post={post && post} key={i}/>
                 )):([1,2,3,4].map((item,i)=> <PostsLoading key={i}/>))
               }
@@ -70,6 +76,7 @@ const openStory = ()=>{
             </div>
             <div className="md:w-2/6"></div>
           </div>
+          {/* <Chat/> */}
          {open && <AddStory openStory={openStory}/>}
         </>
       ) : (

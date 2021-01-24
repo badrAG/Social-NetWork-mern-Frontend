@@ -20,6 +20,7 @@ function EditProfile({ userSuccess, userError }) {
   const jwt = isLogged();
   const { userId } = useParams();
   const userData = new FormData();
+  const [postPicture, setPostPicture] = useState(null);
   const [user, setUser] = useState({
     name: "",
     UserName: "",
@@ -57,7 +58,7 @@ function EditProfile({ userSuccess, userError }) {
   const handleDelete = () => {
     dispatch(deleteProfil(jwt?.token, userId));
     logout(() => {
-      return history.push(`/`);
+      return history.push(`/login`);
     });
   };
 
@@ -65,6 +66,7 @@ function EditProfile({ userSuccess, userError }) {
     return error && <div className="alert alert-danger">{error}</div>;
   };
   const handleInputChange = (e) => {
+    e.target.name === "image" ? setPostPicture(URL.createObjectURL(e.target.files[0])): null;
     const value =
       e.target.name === "image" ? e.target.files[0] : e.target.value;
     setUser({ ...user, [e.target.name]: value });
@@ -79,6 +81,7 @@ function EditProfile({ userSuccess, userError }) {
     user.image && userData.append("image", user.image);
     dispatch(updateProfile(userData, jwt.token, userId));
   };
+ 
   return (
     <>
       <NavBar />
@@ -89,7 +92,7 @@ function EditProfile({ userSuccess, userError }) {
             <form onSubmit={handleFormSubmit} className="editProf dark:bg-gray-700 mt-3 pt-3 shadow-md rounded-md transition duration-500">
               <div className="relative flex justify-center items-center">
                 <Avatar
-                  src={`http://localhost:8888/api/user/photo/${userId}`}
+                  src={postPicture ? postPicture : `http://localhost:8888/api/user/photo/${userId}`}
                   style={{ width: "172px", height: "172px" }}
                   className=""
                 />
@@ -100,8 +103,9 @@ function EditProfile({ userSuccess, userError }) {
                     multiple
                     hidden
                     accept="image/*"
+                    required
                     name="image"
-                    onChange={(e) => handleInputChange(e)}
+                    onChange={(e) => {handleInputChange(e)}}
                   />
                 </label>
               </div>

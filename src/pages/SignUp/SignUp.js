@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch,connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { createUser } from '../../redux/actions/userActions';
+import { createUser, login } from '../../redux/actions/userActions';
 
 function SignUp({userError,userSuccess}) {
     const [error, setError] = React.useState(null);
@@ -21,6 +21,7 @@ function SignUp({userError,userSuccess}) {
         setSuccess(userSuccess);
         dispatch({type:"TOGGLE_SUCCESS"});
       }
+       success && dispatch(login(user));
     }, [userError,userSuccess])
 
     const showError =()=>{
@@ -30,7 +31,6 @@ function SignUp({userError,userSuccess}) {
     const redirectUser=()=>{
       return success && <Redirect to="/login" />
     }
-
     
     const dispatch = useDispatch()
     const handleInputChange = (e) =>{
@@ -41,8 +41,8 @@ function SignUp({userError,userSuccess}) {
         dispatch(createUser(user));
     }
     return (
-      
-      <form onSubmit={handleFormSubmit} className="w-5/6">
+      <div className="md:flex md:justify-center">
+      <form onSubmit={handleFormSubmit} className="w-5/6 md:w-4/6">
         {showError()}
         {redirectUser()}
        <div className="form-group">
@@ -57,8 +57,9 @@ function SignUp({userError,userSuccess}) {
   <div className="form-group">
     <input type="password" name="password" placeholder="Password" onChange={(e)=>handleInputChange(e)} value={user.password} className="form-control bg-gray-100  rounded-full" />
   </div>
-  <button type="submit" className="btn  bg-gray-50 w-full rounded-full text-green-700 font-semibold">Sign In</button>
+  <button type="submit" className="btn z-10 bg-gray-50 w-full rounded-full text-green-700 font-semibold">Sign In</button>
  </form> 
+  </div>
     )
 }
 const mapStateToProps = ({user : {userError, userSuccess}})=>({

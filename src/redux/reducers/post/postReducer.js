@@ -9,14 +9,14 @@ const postReducer = (state = initialState, action) => {
     case postTypes.GET_ALL:
       return {
         ...state,
-        posts:action.payload,
+        posts: action.payload,
       };
-      case "GET_MORE":
-        const moreData= state.posts.concat(action.payload)
-        return {
-          ...state,
-          posts: moreData,
-        };
+    case "GET_MORE":
+      const moreData = state.posts.concat(action.payload);
+      return {
+        ...state,
+        posts: moreData,
+      };
     case postTypes.USER_POSTS:
       return {
         ...state,
@@ -36,30 +36,53 @@ const postReducer = (state = initialState, action) => {
         posts: updatePosts,
       };
     case postTypes.LIKE_UNLIKE_POST:
-      console.log(state.posts)
-      const updatePostLike = state?.posts.filter((post) => {
+      const updatePostLike = state.posts?.filter((post) => {
         if (post._id === action.payload._id) {
           post.likes = action.payload.likes;
+          return state.posts;
         }
         return state.posts;
+      });
+      const updateUserPostLike = state.userPosts?.filter((post) => {
+        if (post._id === action.payload._id) {
+          post.likes = action.payload.likes;
+          return state.userPosts;
+        }
+        return state.userPosts;
       });
       return {
         ...state,
         posts: updatePostLike,
+        userPosts: updateUserPostLike,
       };
-      case postTypes.ADD_DELETE_COMMENT:
-      const updatePost = state?.posts.filter((post) => {
+
+    case postTypes.ADD_DELETE_COMMENT:
+      const updatePost = state.posts?.filter((post) => {
         if (post._id === action.payload._id) {
           post.comments = action.payload.comments;
+          return state.posts;
         }
         return state.posts;
+      });
+
+      const updateUserPost = state.userPosts?.filter((post) => {
+        if (post._id === action.payload._id) {
+          post.comments = action.payload.comments;
+          return state.userPosts;
+        }
+        return state.userPosts;
       });
       return {
         ...state,
         posts: updatePost,
+        userposts: updateUserPost,
       };
-    default:
-      return { state };
+      case "CLEAR_USERPOST":
+        return {
+          ...state,
+          userPosts: [],
+        };
+      default: return {...state}   
   }
 };
 export default postReducer;

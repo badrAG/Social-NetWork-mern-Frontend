@@ -8,10 +8,10 @@ function AddStory({ openStory }) {
   const [storyPicture, setStoryPicture] = useState(null);
   const [file, setFile] = useState();
   const [disabled, setDisabled] = useState(true);
-  const [switchDispatch, setSwitchDispatch] = useState();
+  const [switchDispatch, setSwitchDispatch] = useState(false);
   const dispatch = useDispatch();
-  const token = isLogged().token;
-  const userId = isLogged().user._id;
+  const token = isLogged()?.token;
+  const userId = isLogged()?.user._id;
   const story = useSelector((state) => state.story);
   const [storyId, setStoryId] = useState("");
 
@@ -20,36 +20,28 @@ function AddStory({ openStory }) {
     setFile(e.target.files[0]);
     setDisabled(false);
   };
-
   useEffect(() => {
     const filterStories = () => {
-      if (story.state.stories === "undefined") {
-        setSwitchDispatch(false);
-      } else {
-        story.state?.stories.map((story) => {
-          if (story.StoryBy._id === userId) {
-            setStoryId(story._id);
+        story.stories.map((storyfind) => {
+          if (storyfind.StoryBy._id === userId) {
             setSwitchDispatch(true);
-          } else {
-            setSwitchDispatch(false);
+            setStoryId(storyfind._id);
           }
         });
-      }
     };
     filterStories();
-  }, [switchDispatch]);
-  const handleClickAddStory = async (e) => {
+  }, [story,switchDispatch]);
+  const handleClickAddStory =  (e) => {
     e.preventDefault();
     if (storyPicture) {
       const data = new FormData();
       data.append("storyId", storyId);
       if (file) data.append("file", file);
       if (switchDispatch) {
-        await dispatch(NewStory(token, data, userId));
+         dispatch(NewStory(token, data, userId));
       } else {
-        await dispatch(addStory(token, data, userId));
+         dispatch(addStory(token, data, userId));
       }
-
       cancelPost();
       openStory();
     }
@@ -61,7 +53,7 @@ function AddStory({ openStory }) {
   };
   return (
     <div className="flex justify-center w-full h-screen fixed top-0 z-20 bg-black bg-opacity-50">
-      <div className="relative lg:w-2/5 h-44 w-8/12 sm:w-3/4 md:w-3/4 mt-12 p-2 rounded-xl bg-gray-800 shadow-lg">
+      <div className="relative lg:w-2/5 h-44 w-5/6 md:w-3/4 mt-12 p-2 rounded-xl bg-gray-800 shadow-lg">
         <div className="flex justify-between items-center pb-2 border-gray-400 border-b-2 mb-2">
           <h3 className="text-white font-semibold">Add Story</h3>
           <span
@@ -89,7 +81,7 @@ function AddStory({ openStory }) {
             </label>
           )}
           {storyPicture && (
-            <div className="rounded-xl cursor-pointer m-0 relative w-24 h-24 border-gray-500 border-collapse border-2">
+            <div className="rounded-xl object-cover cursor-pointer m-0 relative w-24 h-24 border-gray-500 border-collapse border-2">
               <img
                 src={storyPicture}
                 className=" w-full h-full object-cover"

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { isLogged } from '../../helpers/auth';
 import { useDispatch } from 'react-redux';
 import { removeComment } from '../../redux/actions/postAction';
+import moment from 'moment'
 
 function Comments({postBy,comment,postId}) {
   const jwt = isLogged();
@@ -19,7 +20,7 @@ function Comments({postBy,comment,postId}) {
           <div className="flex items-center justify-between">
             <Link className="font-bold dark:text-gray-50 no-underline" to={`/@${comment?.commentedBy._id}`}>
             {comment.commentedBy.UserName}
-            <small className="dark:text-gray-200">{" "}&bull;{" "}1h</small>
+            <small className="dark:text-gray-200">{" "}&bull;{" "}{moment(comment.created).fromNow(true)}</small>
             </Link>
               
               {postBy === jwt?.user._id || comment?.commentedBy._id === jwt?.user._id ?

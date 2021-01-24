@@ -7,45 +7,8 @@
     padding-top: 9px;
     padding-bottom: 9px;
 }
-.post__image{
-    padding-right: 0px;
-    padding-left: 0px;
-}
-.post__image >img{
-    width: 100%;
-    border-bottom-left-radius:15px ;
-border-bottom-right-radius:15px ;
-}
-.user__name{
-margin:0px 0px 0px 13px !important;
-font-size: medium;
-}
-.user__name>p{
-    margin: 5px 0px 0px 0px !important;
-}
-.timestimp__post{
-    font-size: 9px;
-    font-weight: 500;
-    color: gray;
-}
-.info__post{
-    margin: 15px 5px 0px 0px;
-    display: flex;
-    align-items: center;
-}
-.option__post{
-    cursor: pointer;
-padding: 5px;
-border-radius: 999px;
-}
-.option__post:hover{
-background-color: whitesmoke;
-}
-.delete__post{
+    .delete__post{
     background-color:white;
-}
-.option__post{
-    position: relative;
 }
 .comments>.MuiSvgIcon-root{
     font-size:23px
@@ -66,42 +29,4 @@ background-color: whitesmoke;
     width: 26px !important;
     height: 26px !important;
 }
-.input_comment{
-    border:none;
-    background-color:#bdbdbd;
-    border-radius:11px;
-    width: 100%;
-    font-size:14px;
-    margin-left: 5px;
-    padding-left: 10px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
-.input_comment:focus{
-outline: none
-}
-.content__comment{
-    background-color:#d8d8d8;
-    font-size:14px;
-    width: 100%;
-    border-top-right-radius:12px ;
-    border-bottom-left-radius:12px ;
-    border-bottom-right-radius:12px ;
-    padding-left: 5px;
-    margin-left:7px;
-    margin-top:2px;
-}
-.userName__comment{
-    font-weight:bold
-}
-.comment__text{
-    padding-bottom: 6px;
-    font-weight: normal;
-}
-.delete__comment>.MuiSvgIcon-root{
-    padding: 3px;
-    color:rgb(63, 63, 63)
-}
-.delete__comment>.MuiSvgIcon-root:hover{
-    color: rgba(241, 70, 70, 0.925) !important;
-}
+

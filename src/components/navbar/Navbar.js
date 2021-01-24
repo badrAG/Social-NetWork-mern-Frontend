@@ -22,7 +22,7 @@ function NavBar() {
   const userData = useSelector((state) => state.user);
   useEffect(() => {
     setUser(userData?.currentUser.user);
-    setUsers(userData.users);
+    setUsers(userData?.users);
   }, [user]);
 
   const handleSearchChange = (e) => {
@@ -67,14 +67,14 @@ function NavBar() {
         />
       </Link>
       <div className="relative">
-        <div className="flex py-1 px-2 ml-2 items-center bg-gray-100 dark:bg-gray-500 transition duration-500  rounded-md">
+        <div className="flex py-1 px-2 md:w-64 w-40 h-7 ml-2 items-center justify-between bg-gray-100 dark:bg-gray-500 transition duration-500  rounded-md">
           <input
             type="text"
-            className="border-none bg-transparent dark:text-gray-50 outline-none"
+            className="border-none w-28 md:w-52 bg-transparent dark:text-gray-50 outline-none"
             placeholder="Search"
             onChange={(e) => handleSearchChange(e)}
           />
-          <SearchIcon className="dark:text-gray-100" />
+          <SearchIcon className="dark:text-gray-100 text-gray-400" />
         </div>
         <div className=" search rounded-lg shadow-sm dropdown mt-1.5 dark:bg-gray-600 absolute w-full">
           {userFound ? (

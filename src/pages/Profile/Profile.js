@@ -13,16 +13,17 @@ import { getUserPosts } from "../../redux/actions/postAction";
 import { connect, useDispatch } from "react-redux";
 import PostsLoading from "../../components/loading/PostsLoading";
 
-function Profile() {
+function Profile({userPosts,posts}) {
   const { userId } = useParams();
   const [error, setError] = useState("");
-  const [userPost, setUserPost] = useState(null);
   const [user, setUser] = useState();
   const [following, setFollowing] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [lentFollower, setLentFollower] = useState(null);
   const [lentFollowing, setLentFollowing] = useState(null);
   const jwt = isLogged();
   const history = useHistory();
+  const dispatch = useDispatch();
   useEffect(() => {
     const checkFollow = (user) => {
       const match = user?.followers.find((follower) => {
@@ -30,26 +31,24 @@ function Profile() {
       });
       return match;
     };
-    const getUserProfile = async () => {
+    const getDataProfile = async () => {
       const userData = await getUser(jwt && jwt.token, userId);
       if (userData.error) return setError(userData.error);
       setUser(userData.data);
       setFollowing(checkFollow(userData.data));
+      await dispatch(getUserPosts(jwt && jwt.token, userId));
+      await setLoading(true);
     };
-    const getPostsUser = async () => {
-      const postData = await getUserPosts(jwt && jwt.token, userId);
-      if (postData.error) return setError(postData.error);
-      setUserPost(postData.data);
-    };
+      
     if(isLogged()){
-          getUserProfile();
-            getPostsUser(); 
+      getDataProfile();
     }else {history.push("/login")};
     return ()=>{
+      setLoading(false);
+      dispatch({type:"CLEAR_USERPOST"});
       setUser(null);
-      setUserPost(null);
     }
-  }, [jwt.token,userId]);
+  }, [dispatch,jwt.token,userId]);
 
   useEffect(() => {
     setLentFollower(user?.followers.length);
@@ -181,11 +180,11 @@ function Profile() {
             </>
           )}
         </div>
-        {userPost?.length === 0 ? (
-                <div className="flex justify-center font-semibold">add first post</div>
+        {loading && userPosts?.length === 0 ? (
+                <div className="flex justify-center font-semibold dark:text-gray-200">Add first post</div>
               ) : (
-                userPost ?
-                userPost?.map((post) => (
+               loading ?
+                userPosts?.map((post) => (
                     <Posts post={post} key={post._id} />
                 )):([1,2,3,4].map((item,i)=> <PostsLoading key={i}/>))
               )}
@@ -193,5 +192,8 @@ function Profile() {
     </>
   );
 }
-
-export default Profile;
+const mapStateToProps = ({ post: { posts, userPosts} }) => ({
+  posts,
+  userPosts,
+});
+export default connect(mapStateToProps, null)(Profile);

@@ -5,18 +5,25 @@ import NavBar from "../navbar/Navbar";
 import { Link } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import { getAllUsers } from "../../redux/actions/userActions";
+import { isLogged } from "../../helpers/auth";
 
 function Users({ users, userError, currentUser, styleToggle }) {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
-
+ const userId =isLogged()?.user._id;
   useEffect(() => {
     if (userError && userError !== null) {
       setError(userError);
     }
     dispatch(getAllUsers(currentUser && currentUser.token));
-  }, [userError, currentUser, dispatch]);
+    
+    dispatch({
+      type : "USER_ERROR",
+      userId 
+  });
 
+  }, [userError, currentUser, dispatch]);
+  
   const showError = () => {
     return error && <div className="alert alert-danger">{error}</div>;
   };
@@ -44,7 +51,7 @@ function Users({ users, userError, currentUser, styleToggle }) {
                         <div className="flex items-center px-3 py-1">
                           <div className={styleToggle ? "user_avatar" : ""}>
                             <Avatar
-                              src={`http://localhost:8888/api/user/photo/${user._id}`}
+                              src={`http://localhost:8888/api/user/photo/${user && user._id}`}
                             />
                           </div>
                           <div className="pl-2">

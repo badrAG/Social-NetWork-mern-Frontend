@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 import { addPost, getAllPosts } from "../../redux/actions/postAction";
 
 function Postler() {
-  const userId = isLogged().user._id;
-  const token = isLogged().token;
+  const userId = isLogged()?.user._id;
+  const token = isLogged()?.token;
   const [file, setFile] = useState();
   const [video, setVideo] = useState("");
   const [postPicture, setPostPicture] = useState(null);
@@ -20,7 +20,6 @@ function Postler() {
     setFile(e.target.files[0]);
     setVideo('');
   };
-  const count=5
   const handlePost = async (e) => {
     if (e.key === "Enter"){
       if (text || postPicture || video) {
@@ -30,7 +29,7 @@ function Postler() {
         data.append('video', video);
         
         await dispatch(addPost(token,data,userId));
-        await dispatch(getAllPosts(token, userId,count));
+        await dispatch(getAllPosts(token, userId));
         cancelPost();
       } else {
         alert("Veuillez entrer un message")
@@ -46,7 +45,7 @@ function Postler() {
         data.append('video', video);
   
         await dispatch(addPost(token,data,userId));
-        await dispatch(getAllPosts(token, userId,count));
+        await dispatch(getAllPosts(token, userId));
         cancelPost();
       }
   };
@@ -107,7 +106,7 @@ function Postler() {
             name="image"
           />
           <AddPhotoAlternateIcon className="file__icon dark:text-gray-300" />
-          <h6 className="m-0 dark:text-gray-300">Photo</h6>
+          <h6 className="m-0 dark:text-gray-300 font-medium">Photo</h6>
         </label>)}
       </div>
       {postPicture || video.length >20 ? (

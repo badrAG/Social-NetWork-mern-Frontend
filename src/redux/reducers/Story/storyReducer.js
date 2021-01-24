@@ -37,9 +37,11 @@ const storyReducer = (state = initialState, action) => {
       const updateImageStory = state?.stories.filter((story) => {
         if (story._id === action.payload._id) {
           story.image = action.payload.image;
+        return state.stories;
         }
         return state.stories;
       });
+      
       return {
         ...state,
         stories: updateImageStory,
@@ -52,8 +54,13 @@ const storyReducer = (state = initialState, action) => {
         ...state,
         stories: updateStories,
       };
-    default:
-      return { state };
+      case 'CLEAR_STORY':
+            return {
+              ...state,
+              story: [],
+            };
+            
+    default: return {...state}  
   }
 };
 export default storyReducer;

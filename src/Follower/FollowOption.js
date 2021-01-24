@@ -10,6 +10,7 @@ function FollowOption({ userId }) {
   const jwt = isLogged();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [following, setFollowing] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const checkFollow = (data) => {
@@ -35,7 +36,6 @@ function FollowOption({ userId }) {
     };
   }, [jwt, userId, loading]);
   const history = useHistory();
-  const [following, setFollowing] = useState(false);
 
   function handleButtonClick(user) {
     setFollowing(!following);

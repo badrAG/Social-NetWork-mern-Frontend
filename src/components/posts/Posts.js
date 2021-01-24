@@ -2,6 +2,7 @@ import { Avatar } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeleteIcon from "@material-ui/icons/Delete";
+import moment from 'moment'
 import "../posts/Posts.css";
 import {
   unLike,
@@ -10,14 +11,13 @@ import {
   Like,
 } from "../../redux/actions/postAction";
 import { isLogged } from "../../helpers/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Comments from "../comments/Comments";
 import { Link } from "react-router-dom";
 function Posts({ post }) {
   const userId = isLogged()?.user._id;
   const token = isLogged()?.token;
   const postId = post._id;
-  const date = new Date(post.createdAt);
   const [liked, setLiked] = useState();
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
@@ -52,17 +52,17 @@ function Posts({ post }) {
             <Link className="no-underline" to={`/@${post.PostedBy._id}`}>
             {post.PostedBy.UserName}
             </Link>
-            <p className="text-gray-400 font-normal text-xs pt-0.5">{date.toLocaleDateString()}</p>
+            <p className="text-gray-400 font-normal text-xs pt-0.5">{moment(post.createdAt).fromNow(true)}</p>
           </h4>
         </div>
         {post.PostedBy._id === userId ? (
           <span
-            className="p-1 rounded-full"
+            className="relative p-1 rounded-full"
             onClick={toggeler}
             style={{ cursor: "pointer" }}
           >
             <MoreVertIcon className="dark:text-gray-200 transition duration-500" />
-            <div className={toggle ? "delete__post absolute rounded-lg shadow-md p-2 flex dark:bg-gray-600 transition duration-500" : "hidden"}>
+            <div className={toggle ? "delete__post absolute rounded-lg right-1 shadow-md p-2 flex dark:bg-gray-600 transition duration-500" : "hidden"}>
               <div
                 className="conter_delete flex"
                 onClick={() => {
@@ -141,7 +141,7 @@ function Posts({ post }) {
       <div className="flex justify-between pb-2 comment">
         <Avatar
           className="avatar_comment"
-          src={`http://localhost:8888/api/user/photo/${userId}`}
+          src={`http://localhost:8888/api/user/photo/${userId && userId}`}
         />
         <input
           type="text"
@@ -155,7 +155,7 @@ function Posts({ post }) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Write a comment..."
-          className="border-none dark:bg-gray-500 dark:text-gray-100 bg-gray-300 rounded-xl w-full text-sm ml-1 py-1 pl-1 focus:outline-none transition duration-500"
+          className="border-none dark:bg-gray-500 dark:text-gray-100 bg-gray-300 rounded-xl w-full text-sm ml-1 py-1 pl-2 focus:outline-none transition duration-500"
         />
       </div>
       {
