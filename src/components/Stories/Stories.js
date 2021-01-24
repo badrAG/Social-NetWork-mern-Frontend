@@ -1,4 +1,3 @@
-https://api-social-network-mern.herokuapp.com/
 import React, { useEffect } from "react";
 import { connect, useDispatch} from "react-redux";
 import { Link } from "react-router-dom";
