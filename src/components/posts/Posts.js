@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import Comments from "../comments/Comments";
 import { Link } from "react-router-dom";
 function Posts({ post }) {
-  const userId = isLogged()?.user._id;
+  const user = isLogged()?.user;
   const token = isLogged()?.token;
   const postId = post._id;
   const [liked, setLiked] = useState();
@@ -36,17 +36,17 @@ function Posts({ post }) {
   const checkLike = () => {
     setLiked(false);
     post.likes.find((like) => {
-      if (like === userId) {
+      if (like === user._id) {
         setLiked(true);
       }
     });
   };
    return (
-    <div className="post__container w-full dark:bg-gray-700 shadow-md md:mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
+    <div className="post__container w-full dark:bg-gray-700 shadow-md md:mx-auto mt-3 md:block md:w-4/5 rounded-md transition duration-500">
       <div className="flex justify-between items-center">
         <div className="mt-2.5 mx-3 flex justify-center items-center">
           <Avatar
-            src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${post.PostedBy._id}`}
+            src={post.PostedBy.image ? post.PostedBy.image :""}
           />
           <h4 className="pl-2 font-medium dark:text-gray-200">
             <Link className="no-underline" to={`/@${post.PostedBy._id}`}>
@@ -55,7 +55,7 @@ function Posts({ post }) {
             <p className="text-gray-400 font-normal text-xs pt-0.5">{moment(post.createdAt).fromNow(true)}</p>
           </h4>
         </div>
-        {post.PostedBy._id === userId ? (
+        {post.PostedBy._id === user._id ? (
           <span
             className="relative p-1 rounded-full"
             onClick={toggeler}
@@ -106,7 +106,7 @@ function Posts({ post }) {
                 className="fas fa-heart text-2xl text-red-500"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  dispatch(unLike(userId, postId, token));
+                  dispatch(unLike(user._id, postId, token));
                   checkLike();
                 }}
               ></i>
@@ -120,7 +120,7 @@ function Posts({ post }) {
                 className="far fa-heart text-2xl dark:text-gray-300 transition duration-500"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  dispatch(Like(userId, postId, token));
+                  dispatch(Like(user._id, postId, token));
                   checkLike();
                 }}
               ></i>
@@ -132,7 +132,7 @@ function Posts({ post }) {
         </div>
         <div className="pl-4 flex items-center">
          <i className="far fa-comment-dots text-2xl dark:text-gray-300 transition duration-500"></i>
-          <small className="font-weight-bold ml-2 dark:text-gray-300 transition duration-500">
+          <small className="font-bold ml-2 dark:text-gray-300 transition duration-500">
             {post.comments.length}
           </small>
         </div>
@@ -141,14 +141,14 @@ function Posts({ post }) {
       <div className="flex justify-between pb-2 comment">
         <Avatar
           className="avatar_comment"
-          src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${userId && userId}`}
+          src={user.image ? user.image :""}
         />
         <input
           type="text"
           name="text"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              dispatch(addComment(text, userId, postId, token));
+              dispatch(addComment(text, user._id, postId, token));
               setText("");
             }
           }}

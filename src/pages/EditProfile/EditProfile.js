@@ -20,7 +20,8 @@ function EditProfile({ userSuccess, userError }) {
   const jwt = isLogged();
   const { userId } = useParams();
   const userData = new FormData();
-  const [postPicture, setPostPicture] = useState(null);
+  const [userPicture, setUserPicture] = useState(null);
+  const [userCapture, setUserCapture] = useState(null);
   const [user, setUser] = useState({
     name: "",
     UserName: "",
@@ -28,6 +29,7 @@ function EditProfile({ userSuccess, userError }) {
     password: "",
     about: "",
     image: "",
+    capture: "",
   });
 
   React.useEffect(() => {
@@ -61,14 +63,12 @@ function EditProfile({ userSuccess, userError }) {
       return history.push(`/login`);
     });
   };
-
-  const showError = () => {
-    return error && <div className="alert alert-danger">{error}</div>;
-  };
+  
   const handleInputChange = (e) => {
-    e.target.name === "image" ? setPostPicture(URL.createObjectURL(e.target.files[0])): null;
+    e.target.name === "image" && setUserPicture(URL.createObjectURL(e.target.files[0]))
+    e.target.name === "capture" && setUserCapture(URL.createObjectURL(e.target.files[0]))
     const value =
-      e.target.name === "image" ? e.target.files[0] : e.target.value;
+      e.target.name === "image" || e.target.name === "capture" ? e.target.files[0] : e.target.value;
     setUser({ ...user, [e.target.name]: value });
   };
   const handleFormSubmit = (e) => {
@@ -78,8 +78,9 @@ function EditProfile({ userSuccess, userError }) {
     user.about && userData.append("about", user.about);
     user.email && userData.append("email", user.email);
     user.password && userData.append("password", user.password);
-    user.image && userData.append("image", user.image);
-    dispatch(updateProfile(userData, jwt.token, userId));
+    user.image && userData.append("user_picture", user.image);
+    user.capture && userData.append("user_capture", user.capture);
+      dispatch(updateProfile(userData, jwt.token, userId));
   };
  
   return (
@@ -87,14 +88,30 @@ function EditProfile({ userSuccess, userError }) {
       <NavBar />
       <div className="flex md:justify-center">
         <div className="w-full md:w-1/2">
-          <div className="">{showError()}</div>
           <div className="w-full">
-            <form onSubmit={handleFormSubmit} className="editProf dark:bg-gray-700 mt-3 pt-3 shadow-md rounded-md transition duration-500">
+            <form onSubmit={handleFormSubmit} className="editProf dark:bg-gray-700  shadow-md rounded-md transition duration-500">
+            <div className="relative mb-14">
+              <img
+            className="w-full h-60 object-cover"
+            src={userCapture ? userCapture : jwt?.user.capture} alt="capture"/>
+             <label className="absolute bottom-3 right-8 px-1 rounded-2xl text-gray-200 border-2 border-gray-200 hover:border-0 hover:bg-gray-400">
+                  <EditIcon className="relative cursor-pointer" />
+                  <input
+                    type="file"
+                    multiple
+                    hidden
+                    accept="image/*"
+                    name="capture"
+                    onChange={(e) => {handleInputChange(e)}}
+                  />
+                </label>
+            {/* avatar section */}
+            <div className="absolute -bottom-14 left-1/2 right-1/2">
               <div className="relative flex justify-center items-center">
                 <Avatar
-                  src={postPicture ? postPicture : `https://api-social-network-mern.herokuapp.com/api/user/photo/${userId}`}
+                  src={userPicture ? userPicture : jwt.user.image}
                   style={{ width: "172px", height: "172px" }}
-                  className=""
+                  className="border-white border-solid border-4"
                 />
                 <label className="absolute -bottom-3 px-1 rounded-lg text-gray-200 bg-green-500">
                   <EditIcon className="relative cursor-pointer" />
@@ -103,34 +120,36 @@ function EditProfile({ userSuccess, userError }) {
                     multiple
                     hidden
                     accept="image/*"
-                    required
                     name="image"
                     onChange={(e) => {handleInputChange(e)}}
                   />
                 </label>
               </div>
+            </div>
+
+            </div>
               <div className="p-3">
-                <div className="form-group ">
+                <div className="h-12 border-gray-400 w-full pb-3 ">
                   <input
                     type="text"
                     name="name"
                     placeholder="Name"
                     onChange={(e) => handleInputChange(e)}
                     value={user.name}
-                    className="form-control dark:bg-gray-500 dark:text-gray-50"
+                    className="w-full dark:bg-gray-500 border-solid border-2 rounded-lg py-1 px-2 dark:text-gray-50"
                   />
                 </div>
-                <div className="form-group">
+                <div className="h-12 border-gray-400 w-full mb-3">
                   <input
                     type="text"
                     name="UserName"
                     placeholder="User Name"
                     onChange={(e) => handleInputChange(e)}
                     value={user.UserName.split(" ").join("")}
-                    className="form-control dark:bg-gray-500 dark:text-gray-50"
+                    className="w-full dark:bg-gray-500 border-solid border-2 rounded-lg py-1 px-2 dark:text-gray-50"
                   />
                 </div>
-                <div className="form-group">
+                <div className="h-12 border-gray-400 w-full mb-6">
                   <textarea
                     name="about"
                     row="5"
@@ -138,40 +157,37 @@ function EditProfile({ userSuccess, userError }) {
                     placeholder="Bio"
                     onChange={(e) => handleInputChange(e)}
                     value={user.about}
-                    className="form-control dark:bg-gray-500 dark:text-gray-50"
+                    className="w-full dark:bg-gray-500 border-solid border-2 rounded-lg py-1 px-2 dark:text-gray-50"
                   />
                 </div>
-                <div className="form-group">
+                <div className="h-12 border-gray-400 w-full mb-3">
                   <input
                     type="email"
                     name="email"
                     placeholder="Email"
                     onChange={(e) => handleInputChange(e)}
                     value={user.email}
-                    className="form-control dark:bg-gray-500 dark:text-gray-50"
+                    className="w-full dark:bg-gray-500 border-solid border-2 rounded-lg py-1 px-2 dark:text-gray-50"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                   />
-                  <small id="emailHelp" className="form-text text-muted dark:text-gray-200">
-                    We'll never share your email with anyone else.
-                  </small>
                 </div>
-                <div className="form-group">
+                <div className="h-12 border-gray-400 w-full mb-3">
                   <input
                     type="password"
                     name="password"
                     placeholder="Password"
                     onChange={(e) => handleInputChange(e)}
                     value={user.password || ""}
-                    className="form-control dark:bg-gray-500 dark:text-gray-50"
+                    className="w-full dark:bg-gray-500 border-solid border-2 rounded-lg py-1 px-2 dark:text-gray-50"
                   />
                 </div>
                 <div className="flex items-center justify-between">
                   <button
                     type="submit"
-                    className="btn bg-green-500 text-gray-50"
+                    className="btn bg-green-500 w-28 py-1 rounded-2xl  text-gray-50"
                   >
-                    Edit
+                    Confirm
                   </button>
                   <p
                     className="text-red-500 p-2 rounded-lg hover:bg-gray-200"

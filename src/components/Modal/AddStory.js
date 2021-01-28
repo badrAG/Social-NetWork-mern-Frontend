@@ -36,7 +36,7 @@ function AddStory({ openStory }) {
     if (storyPicture) {
       const data = new FormData();
       data.append("storyId", storyId);
-      if (file) data.append("file", file);
+      if (file) data.append("story_picture", file);
       if (switchDispatch) {
          dispatch(NewStory(token, data, userId));
       } else {
@@ -52,20 +52,20 @@ function AddStory({ openStory }) {
     setDisabled(true);
   };
   return (
-    <div className="flex justify-center w-full h-screen fixed top-0 z-20 bg-black bg-opacity-50">
-      <div className="relative lg:w-2/5 h-44 w-5/6 md:w-3/4 mt-12 p-2 rounded-xl bg-gray-800 shadow-lg">
+    <div className="flex justify-center w-full h-screen fixed top-0 z-30 bg-black bg-opacity-50">
+      <div className="relative lg:w-2/5 h-44 w-5/6 md:w-3/4 mt-12 p-2 rounded-xl bg-white dark:bg-gray-800 shadow-lg">
         <div className="flex justify-between items-center pb-2 border-gray-400 border-b-2 mb-2">
-          <h3 className="text-white font-semibold">Add Story</h3>
+          <h3 className="dark:text-white font-semibold">Add Story</h3>
           <span
             onClick={openStory}
-            className="flex items-center justify-center text-sm p-2 font-semibold text-white cursor-pointer w-4 h-4 rounded-full hover:bg-gray-500"
+            className="flex items-center justify-center text-sm p-2 font-semibold dark:text-white cursor-pointer w-4 h-4 rounded-full hover:bg-gray-500"
           >
             X
           </span>
         </div>
         <div className="flex">
           {!storyPicture && (
-            <label className="bg-gray-500 bg-opacity-25 rounded-xl cursor-pointer p-2 m-0 relative flex items-center justify-center w-24 h-24 text-gray-700 border-gray-500 border-collapse border-2 hover:bg-opacity-70">
+            <label className="dark:bg-gray-500 bg-gray-200 bg-opacity-25 rounded-xl cursor-pointer p-2 m-0 relative flex items-center justify-center w-24 h-24 text-gray-600 dark:text-gray-700 border-gray-500 border-collapse border-2 hover:bg-opacity-70">
               <input
                 type="file"
                 onChange={(e) => {

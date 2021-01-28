@@ -10,7 +10,7 @@ import { isLogged } from "../../helpers/auth";
 function Users({ users, userError, currentUser, styleToggle }) {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
- const userId =isLogged()?.user._id;
+ const userId =isLogged() && isLogged().user?._id;
   useEffect(() => {
     if (userError && userError !== null) {
       setError(userError);
@@ -51,7 +51,7 @@ function Users({ users, userError, currentUser, styleToggle }) {
                         <div className="flex items-center px-3 py-1">
                           <div className={styleToggle ? "user_avatar" : ""}>
                             <Avatar
-                              src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${user && user._id}`}
+                              src={user.image ? user.image :""}
                             />
                           </div>
                           <div className="pl-2">

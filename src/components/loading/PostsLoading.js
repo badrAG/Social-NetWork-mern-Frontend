@@ -3,7 +3,7 @@ import React from "react";
 
 const PostsLoading = () => {
   return (
-    <div className="post__container w-full dark:bg-gray-700 shadow-md md:mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
+    <div className="post__container w-full dark:bg-gray-700 shadow-md md:mx-auto mt-3 md:block md:w-5/6 rounded-md transition duration-500">
       <div className="mt-3 mx-3 pt-3 flex items-center ">
         <div className="w-12 h-12 rounded-full bg-gray-400 animate-pulse"></div>
         <div className="pl-2 animate-pulse">

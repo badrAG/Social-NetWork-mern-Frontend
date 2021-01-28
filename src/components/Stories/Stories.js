@@ -7,24 +7,26 @@ import { isLogged } from "../../helpers/auth";
 
 function Stories({ stories,openStory }) {
   const token = isLogged() && isLogged().token;
-  const userId = isLogged() && isLogged().user._id;
+  const user = isLogged() && isLogged().user;
   const dispatch = useDispatch();
   useEffect(() => {
-      dispatch(getStories(token, userId));
-  }, [dispatch, token, userId]);
+      dispatch(getStories(token, user._id));
+  }, [dispatch, token, user._id]);
   return (
-    <div className="dark:bg-gray-700 bg-gray-50 py-2 pl-3 shadow-md mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
+    <div className="dark:bg-gray-700 bg-gray-50 py-2 pl-3 shadow-md mx-auto mt-3 md:block md:w-4/5 rounded-md transition duration-500">
       <div className="flex items-start space-x-2 overflow-x-auto">
         <Avatar
           className="cursor-pointer"
-          src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${userId && userId}`}
+          src={user?.image}
           onClick={() => openStory()}
         />
-        {stories.stories?.map((item, i) => (
+        {
+        stories &&
+        stories?.stories.map((item, i) => (
           <Link key={i} to={`/story/@${item.StoryBy?.UserName}/${item?._id}`}>
             <Avatar
               className="border-green-600 border-2 cursor-pointer"
-              src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${item.StoryBy?._id}`}
+              src={item.StoryBy?.image}
             />
           </Link>
         ))}

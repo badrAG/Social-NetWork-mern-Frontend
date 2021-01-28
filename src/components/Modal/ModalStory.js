@@ -69,7 +69,7 @@ const deleteImage =(index)=>{
            <div className="flex items-center">
              <Avatar
               style={{ width: "27px", height: "27px" }}
-              src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${story.story.StoryBy?._id}`}
+              src={story.story.StoryBy?.image}
             />
             <div className="flex flex-col pl-2">
               <span className="text-sm text-white font-bold pr-1">
@@ -88,7 +88,7 @@ const deleteImage =(index)=>{
         </div>
         <img
           className="paused object-cover"
-          src={ story.story.Image && story.story.Image[index]?.picture}
+          src={story.story.Image && story.story.Image[index]?.picture}
           alt={`story by ${story.story.StoryBy?.UserName}`}
         />
         {index < length - 1 && (

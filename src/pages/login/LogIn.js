@@ -42,13 +42,13 @@ function LogIn({userError,userSuccess}) {
       <form onSubmit={handleFormSubmit} className="w-5/6">
         {showError()}
         {redirectUser()}
-  <div className="form-group">
-    <input type="email" name="email" placeholder="Email" onChange={(e)=>handleInputChange(e)} value={user.email} className="form-control bg-white  rounded-full" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+  <div className="w-full">
+    <input type="email" name="email" placeholder="Email" required onChange={(e)=>handleInputChange(e)} value={user.email} className="w-full py-2 px-3 mb-3 outline-none bg-white  rounded-full" id="exampleInputEmail1" aria-describedby="emailHelp"/>
   </div>
-  <div className="form-group">
-    <input type="password" name="password" placeholder="Password" onChange={(e)=>handleInputChange(e)} value={user.password} className="form-control bg-white  rounded-full" />
+  <div className="w-full">
+    <input type="password" name="password" placeholder="Password" required onChange={(e)=>handleInputChange(e)} value={user.password} className="w-full py-2 outline-none px-3 mb-3 bg-white  rounded-full" />
   </div>
-  <button type="submit" className="btn bg-green-600 w-full rounded-full text-pink-50 font-semibold">Log In</button>
+  <button type="submit" className="btn bg-green-600 w-full py-2 rounded-full text-pink-50 font-semibold">Log In</button>
  </form> 
     )
 }

@@ -4,48 +4,44 @@ import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import "./Postler.css";
 import { isLogged } from "../../helpers/auth";
 import { useDispatch } from "react-redux";
-import { addPost, getAllPosts } from "../../redux/actions/postAction";
+import { addPost } from "../../redux/actions/postAction";
 
 function Postler() {
-  const userId = isLogged()?.user._id;
+  const user = isLogged()?.user;
   const token = isLogged()?.token;
   const [file, setFile] = useState();
   const [video, setVideo] = useState("");
   const [postPicture, setPostPicture] = useState(null);
   const [text, setText] = useState("");
   const dispatch = useDispatch();
-  
   const handlePictureChange = (e) => {
     setPostPicture(URL.createObjectURL(e.target.files[0]));
     setFile(e.target.files[0]);
     setVideo('');
   };
-  const handlePost = async (e) => {
+  const handlePost = (e) => {
     if (e.key === "Enter"){
       if (text || postPicture || video) {
         const data = new FormData();
         data.append('text', text);
-        if (file) data.append("file", file);
+        if (file) data.append("post_picture", file);
         data.append('video', video);
-        
-        await dispatch(addPost(token,data,userId));
-        await dispatch(getAllPosts(token, userId));
+       dispatch(addPost(token,data,user._id));
         cancelPost();
       } else {
         alert("Veuillez entrer un message")
       }
     }
   };
-  const handleClickPost = async (e) => {
+  const handleClickPost = (e) => {
       e.preventDefault();
       if (text || postPicture || video) {
         const data = new FormData();
         data.append('text', text);
-        if (file) data.append("file", file);
+        if (file) data.append("post_picture", file);
         data.append('video', video);
-  
-        await dispatch(addPost(token,data,userId));
-        await dispatch(getAllPosts(token, userId));
+        
+       dispatch(addPost(token,data,user._id));
         cancelPost();
       }
   };
@@ -75,10 +71,10 @@ function Postler() {
     handleVideo();
   }, [text, video]);
   return (
-    <div className="postele dark:bg-gray-700 p-1 shadow-md mx-auto mt-3 md:block md:w-1/2 rounded-md transition duration-500">
+    <div className="postele dark:bg-gray-700 p-1 shadow-md mx-auto mt-3 md:block md:w-4/5 rounded-md transition duration-500">
       <div className="flex items-center justify-around p-2">
         <Avatar
-          src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${userId && userId}`}
+          src={user?.image}
         />
         <div className=" bg-gray-200 dark:bg-gray-500 rounded-2xl mx-1 w-full transition duration-500">
           <input

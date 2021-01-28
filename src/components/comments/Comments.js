@@ -14,7 +14,7 @@ function Comments({postBy,comment,postId}) {
           <Link className="no-underline" to={`/@${comment?.commentedBy._id}`}>
         <Avatar
           className="avatar_comment"
-          src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${comment?.commentedBy._id}`}
+          src={comment?.commentedBy.image}
         /> </Link>
         <div className="bg-gray-300 dark:bg-gray-500 pl-1.5 ml-2 mt-0.5 w-full rounded-r-lg rounded-b-lg transition duration-500">
           <div className="flex items-center justify-between">

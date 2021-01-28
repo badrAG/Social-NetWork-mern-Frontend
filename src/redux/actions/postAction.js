@@ -14,7 +14,6 @@ export const getAllPosts = (token, userId,count) => {
           type: postTypes.GET_ALL,
           payload: res.data,
         });
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -54,6 +53,43 @@ export const getUserPosts = (token, userId) => {
       .catch((err) => console.log(err));
   };
 };
+
+export const getImagePosts = (token, userId) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return dispatch =>{
+    Axios.get(`https://api-social-network-mern.herokuapp.com/api/image/posts/${userId}`, config)
+      .then((res) => {
+        dispatch({
+          type: postTypes.USER_IMAGES,
+          payload: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const getVideoPosts = (token, userId) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return dispatch =>{
+    Axios.get(`https://api-social-network-mern.herokuapp.com/api/videos/posts/${userId}`, config)
+      .then((res) => {
+        dispatch({
+          type: postTypes.USER_VIDEOS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
 export const addPost = (token, post, userId) => {
   const config = {
     headers: {

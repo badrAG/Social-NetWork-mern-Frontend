@@ -10,6 +10,7 @@ handleButtonClick,
 userId,
 token,
 followId,
+styleprofile
 }) {
 
     const followUser =async ()=>{
@@ -29,14 +30,14 @@ followId,
         {
             !following ?
             <Button variant="contained"
-            className="btn__Follow"
+            className ={styleprofile ? "btn__Follow w-28":"btn__Follow w-52"}
             startIcon={<FavoriteIcon />}
             onClick={()=> followUser()}
             >
                 Follow
             </Button>:
             <Button variant="contained"
-            className="btn__unFollow"
+            className={styleprofile ? "btn__unFollow w-28":"btn__unFollow w-52"}
             startIcon={<FavoriteBorderIcon />}
             onClick={()=> unFollowUser()}
             >
