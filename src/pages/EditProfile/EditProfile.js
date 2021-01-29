@@ -94,7 +94,7 @@ function EditProfile({ userSuccess, userError }) {
               <img
             className="w-full h-60 object-cover"
             src={userCapture ? userCapture : jwt?.user.capture} alt="capture"/>
-             <label className="absolute bottom-3 right-8 px-1 rounded-2xl text-gray-200 border-2 border-gray-200 hover:border-0 hover:bg-gray-400">
+             <label className="absolute bottom-3 right-8 px-1 rounded-2xl text-gray-400 border-2 border-gray-500 bg-gray-200 hover:border-0 hover:bg-gray-400">
                   <EditIcon className="relative cursor-pointer" />
                   <input
                     type="file"

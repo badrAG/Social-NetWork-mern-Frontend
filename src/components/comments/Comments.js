@@ -10,7 +10,7 @@ function Comments({postBy,comment,postId}) {
   const jwt = isLogged();
   const dispatch = useDispatch();
     return (
-        <div className="d-flex pb-2">
+        <div className="flex pb-2">
           <Link className="no-underline" to={`/@${comment?.commentedBy._id}`}>
         <Avatar
           className="avatar_comment"
@@ -20,7 +20,7 @@ function Comments({postBy,comment,postId}) {
           <div className="flex items-center justify-between">
             <Link className="font-bold dark:text-gray-50 no-underline" to={`/@${comment?.commentedBy._id}`}>
             {comment.commentedBy.UserName}
-            <small className="dark:text-gray-200">{" "}&bull;{" "}{moment(comment.created).fromNow(true)}</small>
+            <small className="dark:text-gray-200 font-light">{" "}&bull;{" "}{moment(comment.created).fromNow(true)}</small>
             </Link>
               
               {postBy === jwt?.user._id || comment?.commentedBy._id === jwt?.user._id ?

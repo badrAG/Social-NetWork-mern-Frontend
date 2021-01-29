@@ -37,7 +37,7 @@ styleprofile
                 Follow
             </Button>:
             <Button variant="contained"
-            className={styleprofile ? "btn__unFollow w-28":"btn__unFollow w-52"}
+            className={styleprofile ? "btn__unFollow w-32":"btn__unFollow w-52"}
             startIcon={<FavoriteBorderIcon />}
             onClick={()=> unFollowUser()}
             >

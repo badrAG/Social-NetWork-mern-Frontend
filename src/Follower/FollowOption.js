@@ -6,7 +6,7 @@ import FollowButton from "./FollowButton";
 import "./Follow.css";
 import { useHistory } from "react-router-dom";
 
-function FollowOption({ userId }) {
+function FollowOption({ userId,openModalFollow }) {
   const jwt = isLogged();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
@@ -50,15 +50,14 @@ function FollowOption({ userId }) {
         data-dismiss="modal"
         aria-label="Close"
       >
-        <div className="flex items-center">
+        <div
+        onClick={openModalFollow}
+        className="flex items-center">
           <Avatar
-            src={`https://api-social-network-mern.herokuapp.com/api/user/photo/${user && user._id}`}
+            src={user?.image}
           />
           <h6 className="follow__name ml-2 dark:text-gray-50">
             {user && user.UserName}
-            <small className="follow__name ml-2 dark:text-gray-50">
-              {user && user.about}
-            </small>
           </h6>
         </div>
       </div>

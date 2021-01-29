@@ -3,7 +3,7 @@ import FollowOption from './FollowOption';
 import "./Follow.css";
 function FollowUserDisplay({openModalFollow,Follow,data}) {
 return (
-  <div className="flex justify-center w-full h-screen fixed top-0 z-30 bg-black bg-opacity-50">
+  <div className="flex justify-center w-full h-screen fixed inset-0 z-30 bg-black bg-opacity-50">
     <div className="relative lg:w-2/5 h-4/5 w-5/6 md:w-6/12 mt-12 p-2 rounded-xl bg-white dark:bg-gray-800 shadow-lg">
       <div className="flex justify-between items-center pb-2 px-2 border-gray-400 border-b-2 mb-2">
         <h3 className="dark:text-white font-semibold">{Follow?"Followers":"Following"}</h3>
@@ -18,7 +18,7 @@ return (
         {data && data.length > 0 ? (
           data.map((user) => (
             <div key={user._id}>
-              <FollowOption userId={user._id} />
+              <FollowOption userId={user._id} openModalFollow={openModalFollow} />
               <hr />
             </div>
           ))
