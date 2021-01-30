@@ -49,7 +49,7 @@ function Auth({toggleLink}) {
           {toggle ? <LogIn /> : <SignUp />}{" "}
           <div onClick={() => toggeler()} className={toggle ? "cursor-pointer":"cursor-pointer md:flex md:justify-center"}>
             {toggle ? (
-              <p className="pl-1 pt-2 hover:text-green-400">
+              <p className="pl-1 pt-2 md:ml-14 hover:text-green-400">
                 create new account
               </p>
             ) : (

@@ -27,19 +27,26 @@ function App({ currentUser }) {
           />
           <Route
             path="/connect_people"
+            exact
             component={() => <Users styleToggle={styleToggle} />}
           />
           <Route path="/@:userId" component={() => <Profile />} />
           <Route
             path="/edit/profile/:userId"
+            exact
             component={() => <EditProfile />}
           />
           <Route
             path="/story/@:UserName/:storyId"
+            exact
             component={() => <ModalStory />}
           />
-          <Route path="/Signup" component={() => <Auth toggleLink={false} />} />
-          <Route path="/Login" component={() => <Auth toggleLink={true} />} />
+          <Route path="/Signup"
+          exact
+          component={() => <Auth toggleLink={false} />} />
+          <Route path="/Login"
+          exact
+          component={() => <Auth toggleLink={true} />} />
         </Switch>
       </Router>
     </div>

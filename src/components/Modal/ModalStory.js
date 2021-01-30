@@ -87,7 +87,7 @@ const deleteImage =(index)=>{
           </div>
         </div>
         <img
-          className="paused object-cover"
+          className="paused w-full h-full object-center object-cover"
           src={story.story.Image && story.story.Image[index]?.picture}
           alt={`story by ${story.story.StoryBy?.UserName}`}
         />

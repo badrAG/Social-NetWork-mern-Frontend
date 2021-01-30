@@ -39,14 +39,14 @@ function LogIn({userError,userSuccess}) {
     }
     return (
       
-      <form onSubmit={handleFormSubmit} className="w-5/6">
+      <form onSubmit={handleFormSubmit} className="w-5/6 md:ml-14">
         {showError()}
         {redirectUser()}
   <div className="w-full">
-    <input type="email" name="email" placeholder="Email" required onChange={(e)=>handleInputChange(e)} value={user.email} className="w-full py-2 px-3 mb-3 outline-none bg-white  rounded-full" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+    <input type="email" name="email" placeholder="Email" required onChange={(e)=>handleInputChange(e)} value={user.email} className="w-full py-2 px-3 mb-3 outline-none bg-white dark:bg-gray-500 dark:text-gray-50  rounded-full" id="exampleInputEmail1" aria-describedby="emailHelp"/>
   </div>
   <div className="w-full">
-    <input type="password" name="password" placeholder="Password" required onChange={(e)=>handleInputChange(e)} value={user.password} className="w-full py-2 outline-none px-3 mb-3 bg-white  rounded-full" />
+    <input type="password" name="password" placeholder="Password" required onChange={(e)=>handleInputChange(e)} value={user.password} className="w-full py-2 outline-none px-3 mb-3 bg-white dark:bg-gray-500 dark:text-gray-50  rounded-full" />
   </div>
   <button type="submit" className="btn bg-green-600 w-full py-2 rounded-full text-pink-50 font-semibold">Log In</button>
  </form> 

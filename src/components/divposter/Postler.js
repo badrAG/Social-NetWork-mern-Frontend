@@ -89,7 +89,7 @@ function Postler() {
             placeholder="What on your mind..."
           />
         </div>
-        {!video && (<label className="bg-gray-200 dark:bg-gray-500 rounded-2xl cursor-pointer p-2 m-0 relative flex items-center w-20 text-gray-700 transition duration-500">
+        {!video && (<label className="bg-gray-200 dark:bg-gray-500 rounded-2xl cursor-pointer p-2 m-0 relative flex items-center text-gray-700 transition duration-500">
           <input
             type="file"
             onChange={(e) => {
@@ -102,8 +102,7 @@ function Postler() {
             name="image"
           />
           <AddPhotoAlternateIcon className="file__icon dark:text-gray-300" />
-          <h6 className="m-0 dark:text-gray-300 font-medium">Photo</h6>
-        </label>)}
+          </label>)}
       </div>
       {postPicture || video.length >20 ? (
            <div className="px-2">
